@@ -3,15 +3,15 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: emlicame <emlicame@student.42.fr>            +#+                      #
+#    By: emanuela <emanuela@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
-#    Created: 2023/04/05 12:13:28 by emlicame      #+#    #+#                  #
-#    Updated: 2023/05/01 17:23:55 by emanuela      ########   odam.nl          #
+#    Created: 2023/05/01 17:27:49 by emanuela      #+#    #+#                  #
+#    Updated: 2023/05/01 17:29:36 by emanuela      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = megaphone
-SRC = megaphone.cpp
+NAME = PhoneBook
+SRC = PhoneBook.cpp
 OBJ = $(SRC:%.cpp=obj/%.o)
 CC = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98
