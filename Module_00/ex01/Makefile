@@ -1,17 +1,23 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: emanuela <emanuela@student.codam.nl>         +#+                      #
-#                                                    +#+                       #
-#    Created: 2023/05/01 17:27:49 by emanuela      #+#    #+#                  #
-#    Updated: 2023/05/01 17:29:36 by emanuela      ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/05/02 15:52:26 by emlicame          #+#    #+#              #
+#    Updated: 2023/05/04 15:44:09 by emlicame         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = PhoneBook
-SRC = PhoneBook.cpp
+NAME = 	PhoneBook
+INC	= 	PhoneBook.hpp \
+		Contacts.hpp
+		
+SRC = 	main.cpp \
+		PhoneBook.cpp \
+		Contacts.cpp
+
 OBJ = $(SRC:%.cpp=obj/%.o)
 CC = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98
@@ -21,7 +27,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(CC) $(FLAGS) $(OBJ) -o $(NAME)
 	
-obj/%.o: %.cpp
+obj/%.o: %.cpp $(INC)
 	@mkdir -p obj
 	@$(CC) $(FLAGS) -c $< -o $@
 
