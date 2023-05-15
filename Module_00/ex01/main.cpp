@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:38:28 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/05 18:18:17 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/05/15 18:32:14 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ int	main(void)
 	PhoneBook phone;
 	std::string input;
 	
-    std::cout	<< C_DBLUE "to My Awesome PhoneBook\nThis application accept "
-    			<< "the following commands:\nADD to add a contact, SEARCH to "
-				<< "look for a name, EXIT to quit the application\n"
+    std::cout	<< C_DBLUE "to	" C_ITALIC C_BOLD "My Awesome PhoneBook\n"
+				<< C_RESET C_DBLUE "This application accept the following commands:\n"
+				<< "ADD to add a contact, SEARCH to look for a name, "
+				<< "EXIT to quit the application\n" 
 				<< "The input entry is case sensitive, please enter the "
-				<< "input in capital letters" C_RESET << std::endl;
+				<< "input in capital letters \n" C_RESET << std::endl;
 
     while (input.compare("EXIT") != 0)
     {

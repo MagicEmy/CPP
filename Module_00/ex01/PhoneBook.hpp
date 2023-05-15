@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:53:49 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/05 19:55:06 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/05/15 18:26:46 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@
 # define C_DBLUE	"\x1b[38;2;0;0;128m"
 # define C_DMGNT	"\x1b[38;2;128;0;128m"
 # define C_DRED		"\x1b[38;2;128;0;0m"
+# define C_BOLD		"\x1B[1m"
+# define C_ITALIC	"\x1B[3m"
 # define C_RESET	"\x1b[0m"
+// Bold	\x1B[1m
 
 # define MAX 8
 
@@ -38,9 +41,8 @@ class PhoneBook
 			PhoneBook(void);
 			~PhoneBook(void);
 
-			// void		startSession(void);
 			void	addContacts(void);
-			void	searchContacts(void);
+			int		searchContacts(void);
 			void	displayContacts(void);
 };
 

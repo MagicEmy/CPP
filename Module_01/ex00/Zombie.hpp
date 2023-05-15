@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   megaphone.cpp                                      :+:      :+:    :+:   */
+/*   Zombie.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/05 12:51:19 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/15 17:46:40 by emlicame         ###   ########.fr       */
+/*   Created: 2023/05/13 18:36:02 by emlicame          #+#    #+#             */
+/*   Updated: 2023/05/13 18:43:51 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
+// Zombies announce themselves as follows:
+// <name>: BraiiiiiiinnnzzzZ...
+// es:
+// Gigio: BraiiiiiiinnnzzzZ...
 
-std::string	capitalize(std::string str)
+
+#ifndef ZOMBIE_HPP
+#define ZOMBIE_HPP
+
+#include <string>
+
+class Zombie
 {
-	int	i = -1;
-	while (str[++i])
-		str[i] = std::toupper(str[i]);
-	return (str);
-}
+	public:
+			void announce( void );
+	
+	private:
+			std::string _name;
+};
 
-int	main(int argc, char **argv)
-{
-	int i;
-
-	i = 1;
-	if (argc < 2)
-		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *";
-	while (argv[i])
-		std::cout << capitalize(argv[i++]);
-	std::cout << std::endl;
-	return (0);
-}
+#endif 		//  ZOMBIE_HPP

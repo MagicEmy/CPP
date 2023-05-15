@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:53:21 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/05 20:19:53 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/05/15 18:31:18 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,28 +96,33 @@ int		getIndex()
 	return (num);
 }
 
-void	PhoneBook::searchContacts(void)
+int	PhoneBook::searchContacts(void)
 {
 	int num;
 	
 	this->displayContacts();
+	if (this->Contacts[0].getFirstName().empty())
+		return (std::cout << "The Phonebook is empty\n" << std::endl, 0);
 	num = getIndex();
 	while (num < 1 || num > MAX)
 	{
 		std::cout << "Invalid index" << std::endl;
 		num = getIndex();
 	}
+	if (this->Contacts[num - 1].getFirstName().empty())
+		return (std::cout << "Invalid choice. This contact does not exist yet" << std::endl, 0);
 	std::cout << "First name: " << this->Contacts[num - 1].getFirstName() << std::endl;
 	std::cout << "Last Name: " << this->Contacts[num - 1].getLastName() << std::endl;
 	std::cout << "Nickname: " << this->Contacts[num - 1].getNickName() << std::endl;
 	std::cout << "Phone Number: " << this->Contacts[num - 1].getPhoneNumber() << std::endl;
 	std::cout << "Dark Secret: " << this->Contacts[num - 1].getDarkSecret() << std::endl;	
 	std::cin.clear();
+	return (0);
 }
 
 PhoneBook::PhoneBook(void)
 {
-	std::cout << C_LVIOLET "✩░▒▓▆▅▃▂▁▁𝐖 𝐄 𝐋 𝐂 𝐎 𝐌 𝐄▁▁▂▃▅▆▓▒░✩" C_RESET << std::endl;
+	std::cout << "\n" C_LVIOLET "✩░▒▓▆▅▃▂▁▁𝐖 𝐄 𝐋 𝐂 𝐎 𝐌 𝐄▁▁▂▃▅▆▓▒░✩" C_RESET << std::endl;
 }
 
 PhoneBook::~PhoneBook(void)

@@ -1,34 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   megaphone.cpp                                      :+:      :+:    :+:   */
+/*   new.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/05 12:51:19 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/15 17:46:40 by emlicame         ###   ########.fr       */
+/*   Created: 2023/04/07 16:20:16 by emlicame          #+#    #+#             */
+/*   Updated: 2023/04/07 17:00:57 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
+#ifndef NEW
+# define NEW
 
-std::string	capitalize(std::string str)
+class Whatever
 {
-	int	i = -1;
-	while (str[++i])
-		str[i] = std::toupper(str[i]);
-	return (str);
-}
+	public:
+	
+	Whatever();
+	~Whatever();
 
-int	main(int argc, char **argv)
+	private:
+	
+	class SecondClass *connection;
+	void Printy();
+};
+
+class SecondClass
 {
-	int i;
+	public:
 
-	i = 1;
-	if (argc < 2)
-		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *";
-	while (argv[i])
-		std::cout << capitalize(argv[i++]);
-	std::cout << std::endl;
-	return (0);
-}
+	SecondClass();
+	~SecondClass();
+	
+	void set_variable(int);
+
+	private:
+
+	int variable;
+};
+
+#endif
