@@ -1,22 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Zombie.cpp                                         :+:      :+:    :+:   */
+/*   Zombie.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 14:22:54 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/16 16:39:12 by emlicame         ###   ########.fr       */
+/*   Created: 2023/05/16 15:49:15 by emlicame          #+#    #+#             */
+/*   Updated: 2023/05/16 18:29:47 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
-#include <iostream>
-// #include <string>
+#ifndef ZOMBIE_HPP
+#define ZOMBIE_HPP
 
-Zombie::Zombie(std::string name) : _name(name) {}
-			
-Zombie::~Zombie()
+#include <string>
+
+class Zombie
 {
-	std::cout << "Zombie " << this->_name << " is finally dead" << std::endl;
-}
+	private:
+			std::string _name;
+			static int _index;
+			
+	public:
+			void announce( void );
+			void setName( std::string name);
+
+			int indexName;
+			
+			Zombie();
+			~Zombie();
+};
+
+Zombie* zombieHorde( int N, std::string name );
+
+#endif //------------MOARBRAINZ_HPP
