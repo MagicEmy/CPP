@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 12:51:19 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/18 17:32:37 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/05/19 12:08:02 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ int	main(int argc, char **argv)
 	while (argv[i])
 		std::cout << capitalize(argv[i++]) << " ";
 	std::cout << std::endl;
-	return (0);
+	return 0;
 }
+
