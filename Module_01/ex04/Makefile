@@ -6,15 +6,13 @@
 #    By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/18 13:18:36 by emlicame          #+#    #+#              #
-#    Updated: 2023/05/18 13:33:23 by emlicame         ###   ########.fr        #
+#    Updated: 2023/05/19 19:42:02 by emlicame         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Sed
 
-INC = Replace.hpp
-
-SRC = main.cpp Replace.cpp
+SRC = main.cpp 
 
 OBJ = $(SRC:%.cpp=obj/%.o)
 
@@ -26,7 +24,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(CC) $(FLAGS) $(OBJ) -o $(NAME)
 	
-obj/%.o: %.cpp $(INC)
+obj/%.o: %.cpp
 	@mkdir -p obj
 	@$(CC) $(FLAGS) -c $< -o $@
 
