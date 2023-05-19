@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:53:21 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/15 18:31:18 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/05/18 17:44:30 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,7 @@ int		getIndex()
 	std::getline(std::cin, index);
 	if (std::cin.eof())
 		exit(EXIT_FAILURE);
-	try
-	{
-		num = std::stoi(index);
-	}
-	catch(std::invalid_argument const& ex)
-	{
-        // std::cout << "invalid argument: " << ex.what() << '\n';
-		return (0);
-	}
+	num = std::atoi(index.c_str());
 	return (num);
 }
 
@@ -131,3 +123,13 @@ PhoneBook::~PhoneBook(void)
 }
 
 
+/*
+try
+{
+	num = std::stoi(index);
+}
+catch(std::invalid_argument const& ex)
+{
+	// std::cout << "invalid argument: " << ex.what() << '\n';
+	return (0);
+}*/

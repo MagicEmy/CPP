@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 18:33:11 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/15 18:01:36 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:35:55 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ Account::Account(int initial_deposit) : _accountIndex (_nbAccounts), _amount (in
 										_nbDeposits (0), _nbWithdrawals (0)
 {
 	this->_displayTimestamp();
-	// _accountIndex = _nbAccounts;
 	std::cout 	<< " index:" << this->getNbAccounts(); 
 	std::cout	<< ";amount:" << initial_deposit << ";created" << std::endl;
 	_totalAmount += initial_deposit;

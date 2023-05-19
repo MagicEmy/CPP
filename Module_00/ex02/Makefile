@@ -6,7 +6,7 @@
 #    By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 15:52:26 by emlicame          #+#    #+#              #
-#    Updated: 2023/05/15 17:12:29 by emlicame         ###   ########.fr        #
+#    Updated: 2023/05/16 20:10:01 by emlicame         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
-# 
+
 re: fclean all
 
 .PHONY: all clean fclean re
