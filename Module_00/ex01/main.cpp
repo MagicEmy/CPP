@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:38:28 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/15 18:32:14 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/05/19 20:12:41 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(void)
 	PhoneBook phone;
 	std::string input;
 	
-    std::cout	<< C_DBLUE "to	" C_ITALIC C_BOLD "My Awesome PhoneBook\n"
+	std::cout	<< C_DBLUE "to	" C_ITALIC C_BOLD "My Awesome PhoneBook\n"
 				<< C_RESET C_DBLUE "This application accept the following commands:\n"
 				<< "ADD to add a contact, SEARCH to look for a name, "
 				<< "EXIT to quit the application\n" 
@@ -42,6 +42,7 @@ int	main(void)
     }
 	return (0);
 }
+
 /*
 cin.getline(temp, STRLEN);
 if (cin.fail()) {

@@ -25,8 +25,8 @@ class Contacts
 			std::string getNickName();
 			std::string getPhoneNumber();
 			std::string getDarkSecret();
-			Contacts();
-			~Contacts();
+			Contacts() {}
+			~Contacts() {}
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:53:21 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/18 17:44:30 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/05/19 20:12:15 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ std::string	getInput(const std::string input)
 		else
 			break ;
 		std::getline(std::cin, buffer);
-		std::cout << std::endl;
+		if (std::cin.eof())
+			exit(EXIT_FAILURE);
 	}
 	return (buffer);
 }
@@ -55,7 +56,6 @@ void		PhoneBook::displayContacts(void)
 	while (number <= MAX && !Contacts[number - 1].getFirstName().empty())
 	{
 		std::cout 	<< "|" << std::setw(10) << number;
-					// << "|" << std::setw(10);
 		if (Contacts[number - 1].getFirstName().length() <= 10)
 			std::cout << "|" << std::setw(10) << Contacts[number - 1].getFirstName();
 		else
@@ -96,13 +96,19 @@ int	PhoneBook::searchContacts(void)
 	if (this->Contacts[0].getFirstName().empty())
 		return (std::cout << "The Phonebook is empty\n" << std::endl, 0);
 	num = getIndex();
-	while (num < 1 || num > MAX)
+	while (1)
 	{
-		std::cout << "Invalid index" << std::endl;
+		if (num < 1 || num > MAX)
+			std::cout << C_DRED << "Invalid index" << C_RESET << std::endl;
+		else if (num > 0 & num < MAX + 1)
+		{
+			if (this->Contacts[num - 1].getFirstName().empty())
+				std::cout << C_DBLUE "Invalid choice. This contact does not exist yet" C_RESET << std::endl;
+			else
+				break ;
+		}
 		num = getIndex();
 	}
-	if (this->Contacts[num - 1].getFirstName().empty())
-		return (std::cout << "Invalid choice. This contact does not exist yet" << std::endl, 0);
 	std::cout << "First name: " << this->Contacts[num - 1].getFirstName() << std::endl;
 	std::cout << "Last Name: " << this->Contacts[num - 1].getLastName() << std::endl;
 	std::cout << "Nickname: " << this->Contacts[num - 1].getNickName() << std::endl;
@@ -121,7 +127,6 @@ PhoneBook::~PhoneBook(void)
 {
     std::cout << "Your contacts have been deleted. Goodbye!" << std::endl;
 }
-
 
 /*
 try

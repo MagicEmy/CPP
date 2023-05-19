@@ -1,16 +1,5 @@
 #include "PhoneBook.hpp"
 
-//setters
-Contacts::Contacts()
-{
-	// std::cout << "Contacts constructor\n";
-}
-
-Contacts::~Contacts()
-{
-	// std::cout << "Contacts destructor\n";
-}
-
 void Contacts::setFirstName(std::string setFirstName)
 {
 	this->_firstName = setFirstName;
@@ -36,7 +25,6 @@ void Contacts::setDarkSecret(std::string setDarkSecret)
 	this->_darkSecret = setDarkSecret;
 }
 
-//getters
 std::string Contacts::getFirstName()
 {
 	return (this->_firstName);

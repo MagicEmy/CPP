@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:53:49 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/15 18:26:46 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:06:32 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # define C_BOLD		"\x1B[1m"
 # define C_ITALIC	"\x1B[3m"
 # define C_RESET	"\x1b[0m"
-// Bold	\x1B[1m
 
 # define MAX 8
 
