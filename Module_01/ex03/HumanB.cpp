@@ -6,14 +6,21 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 15:29:04 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/18 13:25:37 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/05/24 13:44:20 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "HumanB.hpp"
-#include <iostream>
 
-HumanB::HumanB(std::string name) : _name (name), _weapon (nullptr) {}
+HumanB::HumanB(std::string name) : _name (name), _weapon (nullptr) 
+{
+	std::cout << this->_name << " is born" << std::endl;
+}
+
+HumanB::~HumanB( void )
+{
+	std::cout << this->_name << " is dead" << std::endl;
+}
 
 void HumanB::attack() const
 {

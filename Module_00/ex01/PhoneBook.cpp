@@ -6,18 +6,26 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:53:21 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/19 20:12:15 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/05/22 12:26:38 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
+
+bool	ifOnlySpaces(std::string input)
+{
+	for (size_t i = 0; i < input.length(); i++)
+		if (!std::isspace(input[i]))
+			return (0);	
+	return (1);
+}
 
 std::string	getInput(const std::string input)
 {
 	std::string buffer;
 	while (1)
 	{
-		if (buffer.empty())
+		if (ifOnlySpaces(buffer) || buffer.empty())
 			std::cout << input;
 		else
 			break ;

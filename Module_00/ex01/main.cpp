@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:38:28 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/19 20:12:41 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/05/22 11:54:40 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	main(void)
 		std::cin.clear();
 		std::getline(std::cin, input);
 		if (std::cin.eof())
-			exit(EXIT_FAILURE);
+			// exit(EXIT_FAILURE);
+			continue ;
 		if (input.compare("ADD") == 0)
 			phone.addContacts();
 		else if (input.compare("SEARCH") == 0)

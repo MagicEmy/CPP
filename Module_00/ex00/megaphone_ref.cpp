@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   megaphone.cpp                                      :+:      :+:    :+:   */
+/*   megaphone_ref.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/05 12:51:19 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/19 12:06:50 by emlicame         ###   ########.fr       */
+/*   Created: 2023/05/19 20:11:20 by emlicame          #+#    #+#             */
+/*   Updated: 2023/05/22 12:34:51 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include <iostream>
 #include <string>
 #include <cctype>
 
+//range-based for loop is a C++11 extension [-Werror,-Wc++11-extensions]
+ //      for (char& c : str)
 std::string	capitalize(std::string str)
 {
 	for (char& c : str)

@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 15:14:47 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/18 13:24:11 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/05/24 13:44:40 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ class HumanA
 			void attack(void) const;
 
 			HumanA(std::string name, Weapon &weapon);
-			~HumanA( void ) {}
+			~HumanA( void );
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 15:24:29 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/18 13:24:30 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/05/24 13:41:58 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ class HumanB
 			void setWeapon(Weapon &Weapon);
 
 			HumanB(std::string name);
-			~HumanB(void) {}
+			~HumanB(void);
 };
 
 #endif

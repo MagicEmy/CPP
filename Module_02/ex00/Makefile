@@ -5,17 +5,16 @@
 #                                                     +:+ +:+         +:+      #
 #    By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/05/17 13:19:37 by emlicame          #+#    #+#              #
-#    Updated: 2023/05/30 13:55:03 by emlicame         ###   ########.fr        #
+#    Created: 2023/05/30 13:14:48 by emlicame          #+#    #+#              #
+#    Updated: 2023/05/30 14:01:39 by emlicame         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+NAME = Fixed
 
-NAME = Unnecessary_violence
+INC = Fixed.hpp
 
-INC = Weapon.hpp HumanA.hpp HumanB.hpp
-
-SRC = main.cpp Weapon.cpp HumanA.cpp HumanB.cpp
+SRC = main.cpp Fixed.cpp
 
 OBJ = $(SRC:%.cpp=obj/%.o)
 

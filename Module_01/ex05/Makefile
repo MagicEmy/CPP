@@ -5,17 +5,16 @@
 #                                                     +:+ +:+         +:+      #
 #    By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/05/17 13:19:37 by emlicame          #+#    #+#              #
-#    Updated: 2023/05/30 13:55:03 by emlicame         ###   ########.fr        #
+#    Created: 2023/05/22 12:37:02 by emlicame          #+#    #+#              #
+#    Updated: 2023/05/22 17:50:05 by emlicame         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+NAME = Harl2.0
 
-NAME = Unnecessary_violence
+INC = Harl.hpp
 
-INC = Weapon.hpp HumanA.hpp HumanB.hpp
-
-SRC = main.cpp Weapon.cpp HumanA.cpp HumanB.cpp
+SRC = main.cpp Harl.cpp
 
 OBJ = $(SRC:%.cpp=obj/%.o)
 
