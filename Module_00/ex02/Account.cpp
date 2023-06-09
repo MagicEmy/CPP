@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 18:33:11 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/16 18:35:55 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/06/01 12:19:30 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	Account::getNbAccounts( void ){	return (_nbAccounts); }
 int	Account::getTotalAmount( void ){ return (_totalAmount); }
 int	Account::getNbDeposits( void ){	return (_totalNbDeposits); }
 int	Account::getNbWithdrawals( void ){ return (_totalNbWithdrawals); }
+int	Account::checkAmount( void ) const{	return (_amount); }
 
 void Account::_displayTimestamp()
 {
@@ -65,7 +66,7 @@ void	Account::makeDeposit( int deposit  )
 bool	Account::makeWithdrawal( int withdrawal )
 {
 	_displayTimestamp();
-	if ( _amount >= withdrawal)
+	if ( checkAmount() >= withdrawal)
 	{
 		_nbWithdrawals += 1;
 		_totalNbWithdrawals++;

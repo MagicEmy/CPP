@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 15:14:47 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/24 13:44:40 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/06/09 19:08:37 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #define HUMANA_HPP
 
 #include "Weapon.hpp"
+#include <string>
+#include <iostream>
 
 class HumanA
 {

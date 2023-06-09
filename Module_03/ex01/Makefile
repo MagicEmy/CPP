@@ -6,15 +6,15 @@
 #    By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 13:55:16 by emlicame          #+#    #+#              #
-#    Updated: 2023/06/05 16:58:49 by emlicame         ###   ########.fr        #
+#    Updated: 2023/06/09 11:58:39 by emlicame         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ClapTrap
+NAME = ScavTrap
 
-INC = ClapTrap.hpp
+INC = ClapTrap.hpp ScavTrap.hpp
 
-SRC = main.cpp ClapTrap.cpp
+SRC = main.cpp ClapTrap.cpp ScavTrap.cpp
 
 OBJ = $(SRC:%.cpp=obj/%.o)
 

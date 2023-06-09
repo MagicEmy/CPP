@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:00:05 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/24 14:15:15 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/06/09 19:27:18 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,22 @@
 
 Harl::Harl(void)
 {
-	std::cout 	<< "Harl loves complaining" << std::endl;
+	ptrToFn[0] = &Harl::debug;
+	ptrToFn[1] = &Harl::info;
+	ptrToFn[2] = &Harl::warning;
+	ptrToFn[3] = &Harl::error;
+	ptrToFn[4] = &Harl::grumbling;
+	
+	_levelsOn[0] = "DEBUG";
+	_levelsOn[1] = "INFO";
+	_levelsOn[2] = "WARNING";
+	_levelsOn[3] = "ERROR";
+	std::cout 	<< CYAN "Harl loves complaining" RESET << std::endl;
 }
 			
 Harl::~Harl(void)
 {
-	std::cout 	<< "Harl stoped complaining" << std::endl;
+	std::cout 	<< BLUE "Harl stopped complaining" RESET << std::endl;
 }
 
 void	Harl::debug( void )
@@ -53,25 +63,25 @@ void	Harl::error(void)
 				<< "I want to speak to the manager now." RESET << std::endl;
 }
 
+void	Harl::grumbling()
+{
+	std::cout 	<< MGNT "[ GRUMBLING ] \n"
+				<< "Harl is grumbling something, getting more energy for complaining harder" 
+				<< RESET << std::endl;
+}
+
 void Harl::complain( std::string level )
 {
-	// Declare a pointer to member function points to the four different member functions
-	void (Harl::*ptrToFn[])(void) = {
-		&Harl::debug,
-		&Harl::info,
-		&Harl::warning,
-		&Harl::error
-	};
-	std::string levelsOn[] = {
-		"DEBUG",
-		"INFO",
-		"WARNING",
-		"ERROR"
-	};
 	// Call the member function through the pointer
-	for (int i = 0; i < 4; i++)
+	int i = 0;
+	while (i < 4)
 	{
-		if (level == levelsOn[i])
-			(this->*ptrToFn[i])();
+		if (level == _levelsOn[i])
+		{
+			// (this->*ptrToFn[i])();
+			break;
+		}
+		i++;
 	}
+	(this->*ptrToFn[i])();
 }

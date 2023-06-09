@@ -6,11 +6,14 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 18:41:26 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/06 13:46:09 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/06/08 17:06:51 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
+
+ClapTrap::ClapTrap(void)				
+{}
 
 ClapTrap::ClapTrap(std::string name) : _Name (name), _HitPoints (10), 
 										_EnergyPoints (10), _AttackDamage (0)						
@@ -89,6 +92,11 @@ void ClapTrap::beRepaired(unsigned int amount)
 		std::cout 	<< "ClapTrap " << _Name << " gets "
 					<< amount << " hit points back!" << std::endl;
 	}
+}
+
+const std::string& ClapTrap::getName( void ) const
+{
+	return this->_Name;
 }
 
 int ClapTrap::getHitPoints( void ) const

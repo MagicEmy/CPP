@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:00:05 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/24 14:15:54 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/06/09 19:30:12 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,16 @@
 
 Harl::Harl(void)
 {
-	std::cout 	<< "Harl loves complaining" << std::endl;
+	levelsOn[0] = "DEBUG";
+	levelsOn[1]	= "INFO";
+	levelsOn[2]	= "WARNING";
+	levelsOn[3]	= "ERROR";
+	std::cout 	<< DMGNT "Harl loves complaining" RESET << std::endl;
 }
 			
 Harl::~Harl(void)
 {
-	std::cout 	<< "Harl stoped complaining" << std::endl;
+	std::cout 	<< BLUE "Harl stopped complaining" RESET << std::endl;
 }
 
 void	Harl::debug( void )
@@ -55,15 +59,9 @@ void	Harl::error(void)
 
 void Harl::complain( std::string level )
 {
-	int num_level = 0;
-	std::string levelsOn[] = {
-		""
-		"DEBUG",
-		"INFO",
-		"WARNING",
-		"ERROR"
-	};
-	for (int i = 0; i < 4; i++)
+	int size = sizeof(levelsOn) / sizeof(levelsOn[0]);
+	int num_level = 5;
+	for (int i = 0; i < size; i++)
 	{
 		if (level == levelsOn[i])
 			num_level = i;
@@ -71,23 +69,19 @@ void Harl::complain( std::string level )
 	
 	switch (num_level)
 	{
-		case 1 :
+		case 0 :
 			Harl::debug();
-			break;
-		case 2 :
+		case 1 :
 			Harl::info();
-			break;
-		case 3 :
+		case 2 :
 			Harl::warning();
-			break;
-		case 4 :
+		case 3 :
 			Harl::error();
 			break;
 		default :
-			std::cout 	<< ORANGE "[ LOADING ] \n"
-						<< "Loading more energy for complaining harder..." 
+			std::cout 	<< MGNT "[ " << level << " ]" << "\n"
+						<< "Harl doesn't complain at this level...yet" 
 						<< RESET << std::endl;
 			break;
 	}
-	
 }

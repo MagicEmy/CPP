@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:02:19 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/31 19:58:56 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/06/01 13:14:19 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ class Fixed
 			~Fixed();
 			
 			Fixed& operator = (const Fixed &source);
-			
-			friend std::ostream& operator << (std::ostream& output, const Fixed& source);
 			
 			bool operator == (const Fixed &source);
 			bool operator != (const Fixed &source);
@@ -62,5 +60,6 @@ class Fixed
 			void setRawBits( int const raw );
 };
 
+std::ostream& operator << (std::ostream& output, const Fixed& source);
 
 #endif

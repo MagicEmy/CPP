@@ -1,5 +1,15 @@
 #include "PhoneBook.hpp"
 
+/*using the initialization list is more efficient as it directly initializes the 
+member variables instead of first default initializing them and then assigning new values.*/
+Contacts::Contacts() : _firstName(""), _lastName(""), _nickName(""), _phoneNumber(""), _darkSecret("")
+{}
+
+/* since the class Contacts does not have any dynamically allocated resources, 
+a destructor is not necessary in this case.*/
+Contacts::~Contacts()
+{}
+
 void Contacts::setFirstName(std::string setFirstName)
 {
 	this->_firstName = setFirstName;

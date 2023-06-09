@@ -6,7 +6,7 @@
 #    By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/16 15:40:42 by emlicame          #+#    #+#              #
-#    Updated: 2023/05/16 20:10:51 by emlicame         ###   ########.fr        #
+#    Updated: 2023/06/09 18:49:11 by emlicame         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ SRC = main.cpp Zombie.cpp zombieHorde.cpp
 OBJ = $(SRC:%.cpp=obj/%.o)
 
 CC = c++
-FLAGS = -Wall -Werror -Wextra -std=c++98
+FLAGS = -Wall -Wextra -Werror
+FLAGS += -std=c++98
 
 all: $(NAME)
 

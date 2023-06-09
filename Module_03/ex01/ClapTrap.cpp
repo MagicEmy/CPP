@@ -6,16 +6,21 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 18:41:26 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/06 13:13:34 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/06/08 17:29:55 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
+ClapTrap::ClapTrap(void)				
+{
+	std::cout << BLUE "ClapTrap default constructor called." RESET << std::endl;
+}
+
 ClapTrap::ClapTrap(std::string name) : _Name (name), _HitPoints (10), 
 										_EnergyPoints (10), _AttackDamage (0)						
 {
-	std::cout << "ClapTrap constructor called. Name: " << name << std::endl;
+	std::cout << MGNT "ClapTrap constructor called. Name: " << name << RESET << std::endl;
 }
 
 ClapTrap::ClapTrap(const ClapTrap &source)
@@ -25,7 +30,7 @@ ClapTrap::ClapTrap(const ClapTrap &source)
 
 ClapTrap::~ClapTrap()
 {
-	std::cout << "ClapTrap distructor called. Name: " << _Name << std::endl;
+	std::cout << BLUE "ClapTrap distructor called. Name: " << _Name << RESET << std::endl;
 }
 
 ClapTrap& ClapTrap::operator = (const ClapTrap &source)
@@ -52,9 +57,9 @@ void ClapTrap::attack(const std::string& target)
 	{
 		setHitPoints(getHitPoints() - getAttackDamage());
 		_EnergyPoints--;
-		std::cout 	<< "ClapTrap " << _Name << " attacks"
+		std::cout 	<< RED "ClapTrap " << _Name << " attacks "
 					<< target << " causing " << getAttackDamage() 
-					<<  " points of damage!" << std::endl;
+					<<  " points of damage!" RESET << std::endl;
 	}
 }
 
@@ -62,15 +67,15 @@ void ClapTrap::takeDamage(unsigned int amount)
 {
 	if (_HitPoints >= 0)
 	{
-		std::cout	<< "ClapTrap " << _Name << " takes "
-					<< amount << " points of damage!" 
+		std::cout	<< ORANGE "ClapTrap " << _Name << " takes "
+					<< amount << " points of damage!" RESET
 					<< std::endl;
 		setHitPoints(_HitPoints -= amount);
 	}
 	else
 	{
-		std::cout	<< "ClapTrap " << _Name << " is already destroyed. \
-						It cannot take any more damage" << std::endl;		
+		std::cout	<< DORANGE "ClapTrap " << _Name << " is already destroyed. \
+						It cannot take any more damage" RESET << std::endl;		
 	}
 }
 
@@ -80,14 +85,14 @@ void ClapTrap::takeDamage(unsigned int amount)
 void ClapTrap::beRepaired(unsigned int amount)
 {
 	if (getHitPoints() <= 0 || getEnergyPoints() <= 0)
-	{	std::cout 	<< "ClapTrap cannot be repaired "
-					<< "no hit points or energy points left" << std::endl;
+	{	std::cout 	<< YELLOW "ClapTrap cannot be repaired "
+					<< "no hit points or energy points left" RESET << std::endl;
 	}
 	else
 	{
 		_HitPoints += amount;
-		std::cout 	<< "ClapTrap " << _Name << " gets "
-					<< amount << " hit points back!" << std::endl;
+		std::cout 	<< GREEN "ClapTrap " << _Name << " gets "
+					<< amount << " hit points back!" RESET << std::endl;
 	}
 }
 

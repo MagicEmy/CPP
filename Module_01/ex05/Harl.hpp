@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 12:38:50 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/24 14:13:18 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/06/09 19:26:48 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,14 @@
 class Harl
 {
 	private:
+			std::string _levelsOn[4];
+			// Declare a pointer to member function points to the four different member functions
+			void (Harl::*ptrToFn[5])(void);
 			void debug( void );
 			void info( void );
 			void warning( void );
 			void error( void );
+			void grumbling( void );
 
 	public:
 			void complain( std::string level );

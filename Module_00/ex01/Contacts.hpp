@@ -13,6 +13,8 @@ class Contacts
 			std::string _darkSecret;
 
 	public:
+			Contacts();
+			~Contacts();
 
 			void setFirstName(std::string setFirstName);
 			void setLastName(std::string setLastName);
@@ -25,8 +27,6 @@ class Contacts
 			std::string getNickName();
 			std::string getPhoneNumber();
 			std::string getDarkSecret();
-			Contacts() {}
-			~Contacts() {}
 };
 
 #endif

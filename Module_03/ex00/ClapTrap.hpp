@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 17:00:50 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/06 14:33:15 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/06/08 17:09:03 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,24 @@
 
 class ClapTrap
 {
-	private:
-			//Name, which is passed as parameter to a constructor
+	protected:
 			std::string 	_Name;
-			//represent the health of the ClapTrap
 			unsigned int	_HitPoints;
 			unsigned int	_EnergyPoints;
 			unsigned int	_AttackDamage;
 			
 	public:
-
+			ClapTrap( void );
 			ClapTrap(std::string name);
 			ClapTrap(const ClapTrap &source);
-			~ClapTrap();
+			~ClapTrap( void );
 			ClapTrap & operator = (const ClapTrap &source);
 
 			void attack(const std::string& target);
 			void takeDamage(unsigned int amount);
 			void beRepaired(unsigned int amount);
 			
+			const std::string& getName( void ) const;
 			int getHitPoints( void ) const;
 			int getEnergyPoints( void ) const;
 			int getAttackDamage( void ) const;
