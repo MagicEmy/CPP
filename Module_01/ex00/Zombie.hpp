@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 18:36:02 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/09 18:45:31 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/06/13 14:57:31 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ class Zombie
 			
 	public:
 			void announce( void );
-			
+
 			Zombie(std::string name);
 			~Zombie();
 };

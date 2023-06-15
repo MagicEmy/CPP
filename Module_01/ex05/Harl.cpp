@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:00:05 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/09 19:27:18 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:03:50 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,7 @@ void Harl::complain( std::string level )
 	while (i < 4)
 	{
 		if (level == _levelsOn[i])
-		{
-			// (this->*ptrToFn[i])();
 			break;
-		}
 		i++;
 	}
 	(this->*ptrToFn[i])();

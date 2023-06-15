@@ -6,52 +6,69 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 16:38:14 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/09 19:21:19 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/06/15 10:52:46 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
 
 void replaceOccurrence(const std::string& filename, std::string &s1, std::string s2)
 {
 	std::ifstream	inFile(filename);
-	std::ofstream	outFile(filename + ".replace");
-	std::string line;
 	
-	if (inFile.is_open() && outFile.is_open())
+	if (!inFile.is_open())  //check if infile exists and has permissions
 	{
-		while (std::getline(inFile, line))
-		{
-			size_t pos = 0;
-            while ((pos = line.find(s1, pos)) != std::string::npos)
-			{
-				line = line.substr(0, pos) + s2 + line.substr(pos + s1.length());
-                pos += s2.length();				
-			}
-			outFile << line << "\n";
-		}
-		inFile.close();
-		outFile.close();
+		std::cout << "Error. Failed to open the input" <<std::endl;
+		return ;
 	}
-	else
-		std::cout << "Error. Failed to open the input or output file" <<std::endl;
+	std::ofstream	outFile(filename + "-replacement");
+	
+	if (!outFile.is_open()) //check if outfile exists and has permissions
+	{
+		std::cout << "Error. Failed to open the output file" <<std::endl;
+		return ;
+	}
+
+    std::stringstream buffer;
+    buffer << inFile.rdbuf(); // read entire contents of file into buffer
+
+    std::string line = buffer.str();
+
+	size_t pos = 0;
+	while ((pos = line.find(s1, pos)) != std::string::npos) // loop through line until end
+	{
+		line.erase(pos, s1.length());						// erase the old string.
+		line.insert(pos, s2);								// insert the new string.
+		pos += s2.length();									//update the new position with the length of the new string
+	}
+	outFile << line;
+	
+	outFile.close();
+	inFile.close();
 }
 
 int	main(int argc, char **argv)
 {
-	std::string		filename = argv[1];
-	std::string		s1 = argv[2];
-	std::string		s2 = argv[3];
-
 	if (argc != 4)
 	{
-		std::cout << "Enter name of file to read, 1 word to be found and 1 word that will replace the previous one" 
+		std::cout << "Enter the name of file to read, 1 word to be replaced and 1 word as replacement\n" 
+				  << "example: ./Sed <infile> <hello> <ciao>"
 				  << std::endl;
 		return 1;
 	}
+
+	std::string		filename = argv[1];
+	std::string		s1 = argv[2];
+	if (!s1.length())
+	{
+		std::cout << "the word or character to find, cannot be empty" << std::endl;
+		return 1;
+	}
+	std::string		s2 = argv[3];
+	
 	replaceOccurrence(filename, s1, s2);
 	return (0);
 }

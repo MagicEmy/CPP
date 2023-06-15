@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:49:15 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/09 18:55:20 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:04:49 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include <string>
 #include <iostream>
-#include <cstdlib>
+// #include <cstdlib>
 
 #define RED		"\x1b[38;2;255;0;0m"
 #define GREEN	"\x1b[38;2;0;255;0m"
