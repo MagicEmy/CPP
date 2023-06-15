@@ -6,7 +6,7 @@
 #    By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 13:55:16 by emlicame          #+#    #+#              #
-#    Updated: 2023/05/30 15:41:06 by emlicame         ###   ########.fr        #
+#    Updated: 2023/06/12 14:12:30 by emlicame         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ SRC = main.cpp Fixed.cpp
 OBJ = $(SRC:%.cpp=obj/%.o)
 
 CC = c++
-FLAGS = -Wall -Werror -Wextra -std=c++98
+FLAGS = -Wall -Werror -Wextra
+FLAGS += -std=c++98
 
 all: $(NAME)
 

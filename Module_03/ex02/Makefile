@@ -1,20 +1,20 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    MAkefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/05/30 13:55:16 by emlicame          #+#    #+#              #
-#    Updated: 2023/06/12 14:12:22 by emlicame         ###   ########.fr        #
+#    Created: 2023/06/12 14:13:20 by emlicame          #+#    #+#              #
+#    Updated: 2023/06/12 14:13:58 by emlicame         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Fixed
+NAME = FragTrap
 
-INC = Fixed.hpp
+INC = ClapTrap.hpp ScavTrap.hpp FragTrap.hpp
 
-SRC = main.cpp Fixed.cpp
+SRC = main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp
 
 OBJ = $(SRC:%.cpp=obj/%.o)
 
