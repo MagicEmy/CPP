@@ -6,34 +6,43 @@
 #    By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 13:55:16 by emlicame          #+#    #+#              #
-#    Updated: 2023/06/12 14:12:12 by emlicame         ###   ########.fr        #
+#    Updated: 2023/06/16 19:16:43 by emlicame         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ClapTrap
+NAME		= ClapTrap
 
-INC = ClapTrap.hpp
+INCLUDE_DIR = include
 
-SRC = main.cpp ClapTrap.cpp
+SRC_DIR		= src
+DEP_DIR		= dep
+DEP 		= $(SRC:%.cpp=$(DEP_DIR)/%.d)
 
-OBJ = $(SRC:%.cpp=obj/%.o)
+CC 			= c++
+FLAGS 		= -Wall -Werror -Wextra
+FLAGS 		+= -std=c++98
 
-CC = c++
-FLAGS = -Wall -Werror -Wextra
-FLAGS += -std=c++98
+INC 		= -I $(INCLUDE_DIR)
+OBJ 		= $(SRC:%.cpp=obj/%.o)
+SRC 		= main.cpp ClapTrap.cpp
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) -o $(NAME)
-	
-obj/%.o: %.cpp $(INC)
-	@mkdir -p obj
-	@$(CC) $(FLAGS) -c $< -o $@
+	$(CC) $(INC) $(FLAGS) $(OBJ) -o $(NAME)
+
+-include $(DEP)
+
+obj/%.o: src/%.cpp | obj $(DEP_DIR)
+	@$(CC) $(INC) $(FLAGS) -MMD -MF $(DEP_DIR)/$*.d -c $< -o $@
+
+obj $(DEP_DIR):
+	@mkdir -p $@
 
 clean:
 	@rm -f $(OBJ)
 	@rm -rf obj
+	@rm -rf $(DEP_DIR)
 
 fclean: clean
 	@rm -f $(NAME)

@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Cure.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 15:42:44 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/20 15:27:37 by emlicame         ###   ########.fr       */
+/*   Created: 2023/06/19 19:09:27 by emlicame          #+#    #+#             */
+/*   Updated: 2023/06/29 10:56:22 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#ifndef CURE_HPP
+#define CURE_HPP
 
-void	testHorde(int size, std::string name)
-{
-	Zombie	*horde = zombieHorde(size, name);
-	if (horde == nullptr)
-		return ;
-	for (int i = 0; i < size; ++i)
-		horde[i].announce();
-	delete [] horde;
-}
+#include "AMateria.hpp"
 
-int	main(void)
+class Cure : public AMateria
 {
-	testHorde(5, "Zombie");
-	testHorde(25, "Zombie");
-	testHorde(-1, "Zombie");
-	return 0;
-}
+	public:
+			Cure( void );
+			Cure(const Cure &source);
+			virtual ~Cure( void );
+			Cure & operator = (const Cure &source);
+};
+
+#endif		//==============CURE_HPP

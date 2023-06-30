@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   WrongCat.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 15:42:44 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/20 15:27:37 by emlicame         ###   ########.fr       */
+/*   Created: 2023/06/20 11:26:05 by emlicame          #+#    #+#             */
+/*   Updated: 2023/06/21 13:29:34 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#ifndef WRONGCAT_HPP
+#define WRONGCAT_HPP
 
-void	testHorde(int size, std::string name)
-{
-	Zombie	*horde = zombieHorde(size, name);
-	if (horde == nullptr)
-		return ;
-	for (int i = 0; i < size; ++i)
-		horde[i].announce();
-	delete [] horde;
-}
+#include "WrongAnimal.hpp"
 
-int	main(void)
+class WrongCat : public WrongAnimal
 {
-	testHorde(5, "Zombie");
-	testHorde(25, "Zombie");
-	testHorde(-1, "Zombie");
-	return 0;
-}
+	public:
+			WrongCat( void );
+			WrongCat(const WrongCat &source);
+			virtual ~WrongCat( void );
+			WrongCat & operator = (const WrongCat &source);
+
+			void makeSound( void ) const;	
+};
+
+#endif

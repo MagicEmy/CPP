@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Dog.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 15:42:44 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/20 15:27:37 by emlicame         ###   ########.fr       */
+/*   Created: 2023/06/19 19:09:27 by emlicame          #+#    #+#             */
+/*   Updated: 2023/06/21 17:06:14 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#ifndef DOG_HPP
+#define DOG_HPP
 
-void	testHorde(int size, std::string name)
-{
-	Zombie	*horde = zombieHorde(size, name);
-	if (horde == nullptr)
-		return ;
-	for (int i = 0; i < size; ++i)
-		horde[i].announce();
-	delete [] horde;
-}
+#include "AbsAnimal.hpp"
 
-int	main(void)
+class Dog : public AbsAnimal
 {
-	testHorde(5, "Zombie");
-	testHorde(25, "Zombie");
-	testHorde(-1, "Zombie");
-	return 0;
-}
+	public:
+			Dog( void );
+			Dog(const Dog &source);
+			virtual ~Dog( void );
+			Dog & operator = (const Dog &source);
+
+			virtual void makeSound( void ) const ;	
+};
+
+#endif

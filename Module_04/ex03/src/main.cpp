@@ -5,27 +5,31 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 15:42:44 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/20 15:27:37 by emlicame         ###   ########.fr       */
+/*   Created: 2023/06/05 18:11:07 by emlicame          #+#    #+#             */
+/*   Updated: 2023/06/21 17:09:51 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#include "AbsAnimal.hpp"
+#include "Dog.hpp"
+#include "Cat.hpp"
 
-void	testHorde(int size, std::string name)
+int	main (void)
 {
-	Zombie	*horde = zombieHorde(size, name);
-	if (horde == nullptr)
-		return ;
-	for (int i = 0; i < size; ++i)
-		horde[i].announce();
-	delete [] horde;
+   	// const AbsAnimal* meta = new AbsAnimal();
+	const AbsAnimal* j = new Dog();
+	const AbsAnimal* i = new Cat();
+	// meta->makeSound();
+	std::cout << GREEN << j->getType() << " " RESET << std::endl;
+	j->makeSound();
+	std::cout << ORANGE << i->getType() << " " << std::endl;
+	i->makeSound();
+	
+	// delete meta;
+	delete j;
+	delete i;
+
+
+    return 0;
 }
 
-int	main(void)
-{
-	testHorde(5, "Zombie");
-	testHorde(25, "Zombie");
-	testHorde(-1, "Zombie");
-	return 0;
-}

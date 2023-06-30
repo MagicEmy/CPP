@@ -1,0 +1,51 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Cat.cpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/19 19:36:54 by emlicame          #+#    #+#             */
+/*   Updated: 2023/06/29 12:23:04 by emlicame         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Cat.hpp"
+
+Cat::Cat(void) : Animal()
+{
+	setType("Cat");
+	this->_brain = new Brain;
+	std::cout 	<< ORANGE "Cat constructor called" << RESET << std::endl;
+}
+
+Cat::Cat(const Cat &source) : Animal()
+{
+	// this->_brain = new Brain(); ??
+	this->_brain = new Brain(*(source._brain));
+	// *this = source;
+}
+
+Cat::~Cat()
+{
+	delete this->_brain;
+	//try and catch
+	std::cout 	<< DMGNT "Cat distructor called " << RESET << std::endl;
+}
+
+Cat& Cat::operator = (const Cat &source)
+{
+	if (this == &source)
+		return *this;
+	
+	setType(source.getType());
+	
+	delete this->_brain;
+	this->_brain = new Brain(*(source._brain));
+	return *this;
+}
+
+void Cat::makeSound( void ) const
+{
+	std::cout 	<< ORANGE "This cat meows and purrs"  RESET << std::endl;
+}

@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   IMateriaSource.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 15:42:44 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/20 15:27:37 by emlicame         ###   ########.fr       */
+/*   Created: 2023/06/29 11:06:38 by emlicame          #+#    #+#             */
+/*   Updated: 2023/06/29 11:14:40 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#ifndef IMATERIASOURCE_HPP
+#define IMATERIASOURCE_HPP
 
-void	testHorde(int size, std::string name)
-{
-	Zombie	*horde = zombieHorde(size, name);
-	if (horde == nullptr)
-		return ;
-	for (int i = 0; i < size; ++i)
-		horde[i].announce();
-	delete [] horde;
-}
+#include "AMateria.hpp"
 
-int	main(void)
+class IMateriaSource
 {
-	testHorde(5, "Zombie");
-	testHorde(25, "Zombie");
-	testHorde(-1, "Zombie");
-	return 0;
-}
+	public:
+			virtual ~IMateriaSource() {}
+			virtual void learnMateria(AMateria*) = 0;
+			virtual AMateria* createMateria(std::string const & type) = 0;
+};
+
+#endif //==============IMATERIASOURCE_HPP

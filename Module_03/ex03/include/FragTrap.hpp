@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   FragTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 15:42:44 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/20 15:27:37 by emlicame         ###   ########.fr       */
+/*   Created: 2023/06/12 15:42:32 by emlicame          #+#    #+#             */
+/*   Updated: 2023/06/17 19:08:18 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#ifndef FRAGTRAP_HPP
+#define FRAGTRAP_HPP
 
-void	testHorde(int size, std::string name)
-{
-	Zombie	*horde = zombieHorde(size, name);
-	if (horde == nullptr)
-		return ;
-	for (int i = 0; i < size; ++i)
-		horde[i].announce();
-	delete [] horde;
-}
+#include "ClapTrap.hpp"
 
-int	main(void)
+
+class FragTrap : virtual public ClapTrap
 {
-	testHorde(5, "Zombie");
-	testHorde(25, "Zombie");
-	testHorde(-1, "Zombie");
-	return 0;
-}
+	public:
+			FragTrap( void );
+			FragTrap(std::string name);
+			FragTrap(const FragTrap &source);
+			~FragTrap( void );
+			FragTrap & operator = (const FragTrap &source);
+
+			void highFivesGuys( void );
+};
+
+#endif

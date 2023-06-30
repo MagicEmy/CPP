@@ -1,0 +1,1 @@
+obj/Animal.o: src/Animal.cpp include/Animal.hpp include/Colors.hpp

@@ -5,27 +5,34 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 15:42:44 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/20 15:27:37 by emlicame         ###   ########.fr       */
+/*   Created: 2023/06/05 18:11:07 by emlicame          #+#    #+#             */
+/*   Updated: 2023/06/21 13:22:10 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#include "Animal.hpp"
+#include "Dog.hpp"
+#include "Cat.hpp"
 
-void	testHorde(int size, std::string name)
+int	main (void)
 {
-	Zombie	*horde = zombieHorde(size, name);
-	if (horde == nullptr)
-		return ;
-	for (int i = 0; i < size; ++i)
-		horde[i].announce();
-	delete [] horde;
-}
-
-int	main(void)
-{
-	testHorde(5, "Zombie");
-	testHorde(25, "Zombie");
-	testHorde(-1, "Zombie");
+   	const Animal* doggo = new Dog();
+	const Animal* gatto = new Cat();
+	delete doggo;//should not create a leak
+	delete gatto;
+	const Animal* aBunch[8];
+	int i;
+	for (i = 0; i < 8; i++)
+	{
+		if (i < 4)
+			aBunch[i] = new Dog();
+		else
+			aBunch[i] = new Cat();
+	}
+	for (i = 0; i < 8; i++)
+	{
+		delete(aBunch[i]);
+	}
 	return 0;
 }
+

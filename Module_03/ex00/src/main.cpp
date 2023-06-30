@@ -5,27 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 15:42:44 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/20 15:27:37 by emlicame         ###   ########.fr       */
+/*   Created: 2023/06/05 18:11:07 by emlicame          #+#    #+#             */
+/*   Updated: 2023/06/30 12:18:51 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#include "ClapTrap.hpp"
 
-void	testHorde(int size, std::string name)
+int	main (void)
 {
-	Zombie	*horde = zombieHorde(size, name);
-	if (horde == nullptr)
-		return ;
-	for (int i = 0; i < size; ++i)
-		horde[i].announce();
-	delete [] horde;
+    ClapTrap clapTrap("Clappy");
+
+    clapTrap.attack("Enemy");
+    clapTrap.takeDamage(5);
+    clapTrap.takeDamage(5);
+    clapTrap.takeDamage(5);
+    clapTrap.takeDamage(5);
+    clapTrap.beRepaired(3);
+    clapTrap.attack("Enemy");
+    clapTrap.attack("Enemy");
+	std::cout 	<< YELLOW "clapTrap says: My name is " << clapTrap.getName() 
+				<< RESET << std::endl;
+
+    return 0;
 }
 
-int	main(void)
-{
-	testHorde(5, "Zombie");
-	testHorde(25, "Zombie");
-	testHorde(-1, "Zombie");
-	return 0;
-}
+

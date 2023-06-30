@@ -5,12 +5,12 @@
 #                                                     +:+ +:+         +:+      #
 #    By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/05/30 13:55:16 by emlicame          #+#    #+#              #
-#    Updated: 2023/06/16 19:19:06 by emlicame         ###   ########.fr        #
+#    Created: 2023/06/12 14:13:20 by emlicame          #+#    #+#              #
+#    Updated: 2023/06/28 19:35:13 by emlicame         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 		= ScavTrap
+NAME 		= Interface
 
 INCLUDE_DIR = include
 
@@ -21,10 +21,11 @@ DEP 		= $(SRC:%.cpp=$(DEP_DIR)/%.d)
 CC 			= c++
 FLAGS 		= -Wall -Werror -Wextra
 FLAGS 		+= -std=c++98
+# FLAGS 		+= -Wshadow -Wno-shadow
 
 INC 		= -I $(INCLUDE_DIR)
 OBJ 		= $(SRC:%.cpp=obj/%.o)
-SRC 		= main.cpp ClapTrap.cpp ScavTrap.cpp
+SRC 		= main.cpp AbsAnimal.cpp Dog.cpp Cat.cpp
 
 all: $(NAME)
 

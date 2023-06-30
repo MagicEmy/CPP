@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Ice.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 15:42:44 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/20 15:27:37 by emlicame         ###   ########.fr       */
+/*   Created: 2023/06/19 19:36:54 by emlicame          #+#    #+#             */
+/*   Updated: 2023/06/29 11:29:06 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#include "Ice.hpp"
 
-void	testHorde(int size, std::string name)
+Ice::Ice(void) : AMateria()	
 {
-	Zombie	*horde = zombieHorde(size, name);
-	if (horde == nullptr)
-		return ;
-	for (int i = 0; i < size; ++i)
-		horde[i].announce();
-	delete [] horde;
+	std::cout 	<< GREEN "Ice constructor called " << RESET << std::endl;
 }
 
-int	main(void)
+Ice::Ice(const Ice &source) : AMateria()
 {
-	testHorde(5, "Zombie");
-	testHorde(25, "Zombie");
-	testHorde(-1, "Zombie");
-	return 0;
+	*this = source;
+}
+
+Ice::~Ice()
+{
+	std::cout 	<< DMGNT "Ice distructor called " << RESET << std::endl;
+}
+
+Ice& Ice::operator = (const Ice &source)
+{
+	if (this != &source) 
+	{
+		// setType(source.getType());
+	}
+	return *this;
 }
