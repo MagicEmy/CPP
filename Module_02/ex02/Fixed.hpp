@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:02:19 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/01 13:14:19 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:37:56 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,19 @@
 #define FIXED_HPP
 
 #include <iostream>
+
+
+#define RED		"\x1b[38;2;255;0;0m"
+#define DRED	"\x1b[38;2;128;0;0m"
+#define GREEN	"\x1b[38;2;0;255;0m"
+#define YELLOW	"\x1b[38;2;255;255;0m"
+#define ORANGE	"\x1b[38;2;255;128;0m"
+#define CYAN	"\x1b[38;2;0;255;255m"
+#define BLUE	"\033[34m"
+#define MGNT	"\x1b[38;2;255;0;255m"
+#define DMGNT	"\x1b[38;2;128;0;128m"
+#define RESET	"\033[0m"
+
 
 class Fixed
 {
@@ -32,17 +45,17 @@ class Fixed
 			
 			Fixed& operator = (const Fixed &source);
 			
-			bool operator == (const Fixed &source);
-			bool operator != (const Fixed &source);
-			bool operator < (const Fixed &source);
-			bool operator <= (const Fixed &source);
-			bool operator > (const Fixed &source);
-			bool operator >= (const Fixed &source);
+			bool operator == (const Fixed &source) const;
+			bool operator != (const Fixed &source) const;
+			bool operator < (const Fixed &source) const;
+			bool operator <= (const Fixed &source) const;
+			bool operator > (const Fixed &source) const;
+			bool operator >= (const Fixed &source) const;
 			
-			Fixed operator + (const Fixed &source);
-			Fixed operator - (const Fixed &source);
-			Fixed operator * (const Fixed &source);
-			Fixed operator / (const Fixed &source);
+			Fixed operator + (const Fixed &source) const;
+			Fixed operator - (const Fixed &source) const;
+			Fixed operator * (const Fixed &source) const;
+			Fixed operator / (const Fixed &source) const;
 			
 			Fixed& operator ++ ( void ); //pre
 			Fixed& operator -- ( void ); //pre

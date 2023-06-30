@@ -6,14 +6,16 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:02:50 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/31 19:58:18 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:38:21 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 #include <cmath>
 
-const int Fixed::_fractBits = 8; // Initialization of _fractBits
+const int Fixed::_fractBits = 8; // Initialization of static _fractBits
+
+/* --------------- Constructors ---------------*/
 
 Fixed::Fixed(void) : _fixedValue (0) 
 {
@@ -21,16 +23,16 @@ Fixed::Fixed(void) : _fixedValue (0)
 }
 
 // A constructor that takes a constant integer as a parameter.
-Fixed::Fixed(const int i_num) : _fixedValue (0) 
+Fixed::Fixed(const int i_num) : _fixedValue (i_num << _fractBits) 
 {
-	_fixedValue = i_num << _fractBits;
+	// std::cout 	<< MGNT << "Int constructor called" RESET << std::endl;
 }
 
 //A constructor that takes a constant floating-point number as a parameter.
-Fixed::Fixed(const float f_num) : _fixedValue (0) 
+//roundf() ret value is rounded to the nearest int before being assigned to _fixedValue.
+Fixed::Fixed(const float f_num) : _fixedValue (roundf(f_num * static_cast<float>(1 << _fractBits))) 
 {
-	//val returned by roundf() is rounded to the nearest int before being assigned to _fixedValue.
-	_fixedValue = (roundf(f_num * (1 << _fractBits)));
+	// std::cout 	<< MGNT << "Float constructor called" RESET << std::endl;
 }
 
 Fixed::Fixed(const Fixed &source)
@@ -39,126 +41,113 @@ Fixed::Fixed(const Fixed &source)
 	*this = source;
 }
 
+/* --------------- Destructor ---------------*/
+
 Fixed::~Fixed(void)
 {
 	// std::cout 	<< "Destructor is called" << std::endl;
 }
 
+/* ---------- Operator Overload Functions ---------- */
 // Copy assignment operator
 Fixed& Fixed::operator = (const Fixed &source)
 {
-	if (this != &source) 
-	{
-		_fixedValue = source.getRawBits();
-	}
+	if (this == &source)
+		return *this;
+	setRawBits(source.getRawBits());
 	return *this;
 }
 
-//An overload of the insertion («) operator 
-std::ostream& operator << (std::ostream& output, const Fixed& source)
-{
-    output << source.toFloat();
-    return output;
-}
-
-
+/* ----- Comparison Operator Overload Functions ----- */
 //Equality assignment operator 
-bool Fixed::operator == (const Fixed &source)
+bool Fixed::operator == (const Fixed &source) const
 {
-	if (this->_fixedValue == source.getRawBits()) 
-	{
-		return true;
-	}
-	return false;
+	return (this->getRawBits() == source.getRawBits());
 }
 
 //Inequality assignment operator 
 // It directly returns the result of the comparison operation, which is already a boolean value.
-bool Fixed::operator != (const Fixed &source)
+bool Fixed::operator != (const Fixed &source) const
 {
-	return this->_fixedValue != source.getRawBits();
+	return this->getRawBits() != source.getRawBits();
 }
 
 // Less than assignment operator
-bool Fixed::operator < (const Fixed &source)
+bool Fixed::operator < (const Fixed &source) const
 {
-	if (this->toFloat() < source.toFloat()) 
-	{
-		return true;
-	}
-	return false;
+	return this->getRawBits() < source.getRawBits();
 }
 
 // Less than or equal assignment
-bool Fixed::operator <= (const Fixed &source)
+bool Fixed::operator <= (const Fixed &source) const
 {
-	return this->toFloat() <= source.toFloat();
+	return this->getRawBits() <= source.getRawBits();
 }
 
 
 // Greater than assignment operator
-bool Fixed::operator > (const Fixed &source)
+bool Fixed::operator > (const Fixed &source) const
 {
-	if (this->_fixedValue > source.getRawBits()) 
-	{
-		return true;
-	}
-	return false;
+	return this->getRawBits() > source.getRawBits();
 }
 
 // Greater than or equal assignment operator
-bool Fixed::operator >= (const Fixed &source)
+bool Fixed::operator >= (const Fixed &source) const
 {
-	return this->toFloat() >= source.toFloat();
+	return this->getRawBits() >= source.getRawBits();
 }
 
-// A addition operator overload.
-Fixed Fixed::operator + (const Fixed &source)
+/* ----- Arithmetic Operator Overload Functions ----- */
+
+// Addition operator overload.
+Fixed Fixed::operator + (const Fixed &source) const
 {
 	Fixed res;
-	res = this->toFloat() + source.toFloat();
+	res = this->getRawBits() + source.getRawBits();
 	return res;
 }
 
-// A subtraction operator overload.
-Fixed Fixed::operator - (const Fixed &source)
+// Subtraction operator overload.
+Fixed Fixed::operator - (const Fixed &source) const
 {
 	Fixed res;
-	res = this->toFloat() - source.toFloat();
+	res = this->getRawBits() - source.getRawBits();
 	return res;
 }
 
-// A multiplication operator overload.
-Fixed Fixed::operator * (const Fixed &source)
+// Multiplication operator overload.
+Fixed Fixed::operator * (const Fixed &source) const
 {
 	Fixed res;
-	res = this->toFloat() * source.toFloat();
+	res = this->getRawBits() * source.getRawBits();
 	return res;
 }
 
-// A division operator overload.
-Fixed Fixed::operator / (const Fixed &source)
+// Division operator overload.
+Fixed Fixed::operator / (const Fixed &source) const
 {
 	Fixed res;
-	res = this->toFloat() / source.toFloat();
+	res = this->getRawBits() / source.getRawBits();
 	return res;
 }
 
-// A pre-increment operator overload.
+/* ----- Increment / Decrement Overload Functions ----- */
+
+// Pre-increment operator overload.
 Fixed& Fixed::operator ++ (void)
 {
 	this->_fixedValue++;
 	return *this;
 }
 
-// A pre-decrement operator overload.
+// Pre-decrement operator overload.
 Fixed& Fixed::operator -- (void)
 {
 	this->_fixedValue--;
 	return *this;
 }
 
-// A post-increment operator overload.
+// Post-increment operator overload.
 Fixed Fixed::operator ++ (int)
 {
 	Fixed temp = *this;
@@ -166,7 +155,7 @@ Fixed Fixed::operator ++ (int)
 	return temp;
 }
 
-// A post-decrement operator overload.
+// Post-decrement operator overload.
 Fixed Fixed::operator -- (int)
 {
 	Fixed temp = *this;
@@ -174,18 +163,21 @@ Fixed Fixed::operator -- (int)
 	return temp;
 }
 
-//A static member function min that takes as parameters two references on fixed-point numbers, 
-//and returns a reference to the smallest one.
+/* ------------ Static Member Functions ------------ */
+
+//Static member function min, takes as parameters two references on fixed-point numbers, 
+//returns a reference to the smallest one.
 Fixed& Fixed::min (Fixed &source_1, Fixed &source_2)
 {
-	if (source_1.toFloat() < source_2.toFloat())
+	if (source_1 < source_2)
 		return source_1;
 	return source_2;
 }
 
-const Fixed& Fixed::min (const Fixed &source_1, const Fixed &source_2) //with constant fixed-point numbers
+//with constant fixed-point numbers
+const Fixed& Fixed::min (const Fixed &source_1, const Fixed &source_2)
 {
-	if (source_1.toFloat() < source_2.toFloat())
+	if (source_1 < source_2)
 		return source_1;
 	return source_2;
 }
@@ -199,10 +191,12 @@ Fixed& Fixed::max (Fixed &source_1, Fixed &source_2)
 
 const Fixed& Fixed::max (const Fixed &source_1, const Fixed &source_2)
 {
-	if (source_1.toFloat() > source_2.toFloat())
+	if (source_1 > source_2)
 		return source_1;
 	return source_2;
 }
+
+/* --------------- Member Functions --------------- */
 
 //converts the fixed-point value by dividing it by (1 << _fractBits), 
 float Fixed::toFloat( void ) const
@@ -223,4 +217,13 @@ int Fixed::getRawBits( void ) const
 void Fixed::setRawBits( int const raw )
 {
 	_fixedValue = raw;
+}
+
+/* --------------- Non-Member Functions --------------- */
+
+//An overload of the insertion («) operator 
+std::ostream& operator << (std::ostream& output, const Fixed& source)
+{
+    output << source.toFloat();
+    return output;
 }

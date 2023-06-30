@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:02:19 by emlicame          #+#    #+#             */
-/*   Updated: 2023/05/31 15:45:07 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/06/29 09:42:17 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,17 @@
 
 #include <iostream>
 #include <cmath>
+
+#define RED		"\x1b[38;2;255;0;0m"
+#define DRED	"\x1b[38;2;128;0;0m"
+#define GREEN	"\x1b[38;2;0;255;0m"
+#define YELLOW	"\x1b[38;2;255;255;0m"
+#define ORANGE	"\x1b[38;2;255;128;0m"
+#define CYAN	"\x1b[38;2;0;255;255m"
+#define BLUE	"\033[34m"
+#define MGNT	"\x1b[38;2;255;0;255m"
+#define DMGNT	"\x1b[38;2;128;0;128m"
+#define RESET	"\033[0m"
 
 class Fixed
 {
@@ -38,8 +49,6 @@ class Fixed
 			~Fixed();
 			// A copy assignment operator overload.
 			Fixed& operator = (const Fixed &source);
-			//An overload of the insertion («) operator 
-			friend std::ostream& operator << (std::ostream& output, const Fixed& source);
 			//A member function that converts float toFloat( void ) const;
 			float toFloat( void ) const;
 			//A member function that converts the fixed-point value to an integer value.
@@ -50,5 +59,7 @@ class Fixed
 			void setRawBits( int const raw );
 };
 
+//An overload of the insertion («) operator 
+std::ostream & operator<<(std::ostream &o, Fixed const &instance);
 
 #endif
