@@ -35,7 +35,9 @@ DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name"),
 	_MaxHitPoints = FragTrap::_HitPoints;;
 }
 
-DiamondTrap::DiamondTrap(const DiamondTrap &source) : ClapTrap(source)
+DiamondTrap::DiamondTrap(const DiamondTrap &source) : ClapTrap(source), 
+													ScavTrap(source), 
+													FragTrap(source)
 {
 	*this = source;
 }
