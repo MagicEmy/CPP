@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 17:00:50 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/08 17:30:02 by emlicame         ###   ########.fr       */
+/*   Created: 2023/07/03 13:10:00 by emlicame          #+#    #+#             */
+/*   Updated: 2023/07/03 17:26:33 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 #define BLUE	"\033[34m"
 #define MGNT	"\x1b[38;2;255;0;255m"
 #define DMGNT	"\x1b[38;2;128;0;128m"
+#define B_VIOLET	"\x1b[48;2;128;0;255m"
 #define RESET	"\033[0m"
 
 class ClapTrap
@@ -35,7 +36,8 @@ class ClapTrap
 			unsigned int	_HitPoints;
 			unsigned int	_EnergyPoints;
 			unsigned int	_AttackDamage;
-			
+			unsigned int	_MaxHitPoints;
+
 	public:
 			ClapTrap( void );
 			ClapTrap(std::string name);
@@ -47,12 +49,7 @@ class ClapTrap
 			void takeDamage(unsigned int amount);
 			void beRepaired(unsigned int amount);
 			
-			int getHitPoints( void ) const;
-			int getEnergyPoints( void ) const;
-			int getAttackDamage( void ) const;
-			void setHitPoints( unsigned int const points);
-			void setEnergyPoints( unsigned int const energy);
-			void setAttackDamage( unsigned int const damage);
+			void printStats( void );
 };
 
 #endif

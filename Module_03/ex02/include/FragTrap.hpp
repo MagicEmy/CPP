@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:42:32 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/12 15:50:58 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/07/03 13:16:44 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ class FragTrap : public ClapTrap
 		FragTrap & operator = (const FragTrap &source);
 
 		void highFivesGuys( void );
-		void attack(const std::string& target);
 };
 
 #endif

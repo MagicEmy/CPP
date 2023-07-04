@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 18:11:07 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/17 19:22:26 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/07/04 11:12:17 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ int	main (void)
 	DiamondT.whoAmI();
 	DiamondT.attack("Happy Dude");
 	DiamondT.attack("ChatGPT");
-    DiamondT.takeDamage(5);
+    DiamondT.ScavTrap::takeDamage(5);
 	DiamondT.attack("ChatGPT");
 	DiamondT.attack("ChatGPT");
-    DiamondT.beRepaired(3);
+    DiamondT.FragTrap::beRepaired(3);
     DiamondT.attack("ChatGPT");
     DiamondT.attack("ChatGPT");
 	

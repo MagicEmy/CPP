@@ -6,24 +6,31 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:42:36 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/30 12:02:39 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/07/04 16:17:44 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FragTrap.hpp"
 
-FragTrap::FragTrap(void)				
+FragTrap::FragTrap(void) : ClapTrap()			
 {
+	_Name = " ";
+	_HitPoints = 100;
+	_EnergyPoints = 100;
+	_AttackDamage = 30;
+	_MaxHitPoints = 100;
 	std::cout << GREEN "FragTrap default constructor called." RESET << std::endl;
 }
 
+
 FragTrap::FragTrap(std::string name) : ClapTrap(name)					
 {
+	_HitPoints = 100;
+	_EnergyPoints = 100;
+	_AttackDamage = 30;
+	_MaxHitPoints = 100;
 	std::cout 	<< GREEN "FragTrap constructor called. Name: " << name 
 				<< RESET << std::endl;
-	setHitPoints(100);
-	setEnergyPoints(100);
-	setAttackDamage(30);
 }
 
 FragTrap::FragTrap(const FragTrap &source) : ClapTrap(source)
@@ -33,7 +40,7 @@ FragTrap::FragTrap(const FragTrap &source) : ClapTrap(source)
 
 FragTrap::~FragTrap()
 {
-	std::cout	<< DGREEN "FragTrap distructor called. Name: " << _Name 
+	std::cout	<< DORANGE "FragTrap destructor called. Name: " << _Name 
 				<< RESET << std::endl;
 }
 
@@ -42,28 +49,13 @@ FragTrap& FragTrap::operator = (const FragTrap &source)
 	if (this == &source)
 		return *this;
 		
-	setHitPoints(source.getHitPoints());
-	setEnergyPoints(source.getHitPoints());
-	setEnergyPoints(source.getHitPoints());
+	_Name = source._Name;
+	_HitPoints = source._HitPoints;
+	_EnergyPoints = source._EnergyPoints;
+	_AttackDamage = source._AttackDamage;
+	_MaxHitPoints = source._MaxHitPoints;
 	return *this;
 }
-
-// void FragTrap::attack(const std::string& target)
-// {
-// 	if (getHitPoints() <= 0 || getEnergyPoints() <= 0)
-// 	{	std::cout << AZURE "FragTrap cannot attack, no hit points or energy points left"
-// 				  RESET << std::endl;
-// 	}
-// 	else
-// 	{
-// 		setHitPoints(getHitPoints() - getAttackDamage());
-// 		_EnergyPoints--;
-// 		std::cout 	<< L_AZURE C_UNDL C_BOLD "[ ATTACK ]" RESET L_AZURE
-// 					<< " FragTrap " << _Name << " attacks "
-// 					<< target << " causing " << getAttackDamage() 
-// 					<<  " points of damage!" RESET << std::endl;
-// 	}
-// }
 
 void FragTrap::highFivesGuys()
 {

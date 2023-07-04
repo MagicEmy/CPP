@@ -28,16 +28,8 @@ class DiamondTrap : public ScavTrap, public FragTrap
 			~DiamondTrap( void );
 			DiamondTrap & operator = (const DiamondTrap &source);
 
+			void attack(const std::string& target);
 			void whoAmI( void );
 };
 
 #endif
-
-/*
-• Name, which is passed as parameter to a constructor
-• ClapTrap::name (parameter of the constructor + "_clap_name" suffix)
-• Hit points (FragTrap)
-• Energy points (ScavTrap)
-• Attack damage (FragTrap)
-• attack() (Scavtrap)
-*/

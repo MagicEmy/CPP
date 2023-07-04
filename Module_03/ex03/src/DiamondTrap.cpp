@@ -12,19 +12,27 @@
 
 #include "DiamondTrap.hpp"
 
-DiamondTrap::DiamondTrap(void)				
+DiamondTrap::DiamondTrap(void) : ClapTrap("_clap_name"), _Name(" ")
 {
+	_HitPoints = FragTrap::_HitPoints;
+	_EnergyPoints = ScavTrap::_EnergyPoints;
+	_AttackDamage = FragTrap::_AttackDamage;
+	_MaxHitPoints = FragTrap::_HitPoints;;
 	std::cout << BLUE "DiamondTrap default constructor called." RESET << std::endl;
 }
 
 /*ClapTrap::name (parameter of the constructor + "_clap_name" suffix)*/
-DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name"), _Name(name)
+DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name"), 
+											 ScavTrap(ClapTrap::_Name), 
+											 FragTrap(ClapTrap::_Name), 
+											 _Name(name)
 {
-	std::cout 	<< BLUE "DiamondTrap constructor called. Name: " << name 
+	std::cout 	<< BLUE "DiamondTrap constructor called. Name: " << _Name 
 				<< RESET << std::endl;
-	setHitPoints(100);						//Hit points (FragTrap)
-	setEnergyPoints(50);					//Energy points (ScavTrap)
-	setAttackDamage(30);					//Attack damage (FragTrap)
+	_HitPoints = FragTrap::_HitPoints;
+	_EnergyPoints = ScavTrap::_EnergyPoints;
+	_AttackDamage = FragTrap::_AttackDamage;
+	_MaxHitPoints = FragTrap::_HitPoints;;
 }
 
 DiamondTrap::DiamondTrap(const DiamondTrap &source) : ClapTrap(source)
@@ -34,7 +42,7 @@ DiamondTrap::DiamondTrap(const DiamondTrap &source) : ClapTrap(source)
 
 DiamondTrap::~DiamondTrap()
 {
-	std::cout	<< CYAN "DiamondTrap distructor called. Name: " << _Name 
+	std::cout	<< CYAN "DiamondTrap destructor called. Name: " << _Name 
 				<< RESET << std::endl;
 }
 
@@ -43,10 +51,17 @@ DiamondTrap& DiamondTrap::operator = (const DiamondTrap &source)
 	if (this == &source)
 		return *this;
 		
-	setHitPoints(source.getHitPoints());
-	setEnergyPoints(source.getHitPoints());
-	setEnergyPoints(source.getHitPoints());
+	_Name = source._Name;
+	_HitPoints = source._HitPoints;
+	_EnergyPoints = source._EnergyPoints;
+	_AttackDamage = source._AttackDamage;
+	_MaxHitPoints = source._MaxHitPoints;
 	return *this;
+}
+
+void DiamondTrap::attack(const std::string& target)
+{
+	ScavTrap::attack(target);
 }
 
 void DiamondTrap::whoAmI()
@@ -55,5 +70,3 @@ void DiamondTrap::whoAmI()
 				<< " and ClapTrap name is " << ClapTrap::_Name 
 				<< RESET << std::endl;
 }
-/*
-This member function will display both its name and its ClapTrap name.*/
