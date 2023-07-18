@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 18:11:07 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/20 14:30:48 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/07/13 09:51:34 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,13 @@ int	main (void)
 	const Animal* j = new Dog();
 	const Animal* i = new Cat();
 	const WrongAnimal* wrong = new WrongCat();
+	std::cout << "What is the sound of " << meta->getType() << " " RESET << std::endl;
 	meta->makeSound();
-	std::cout << GREEN << j->getType() << " " RESET << std::endl;
-	j->makeSound();
-	std::cout << ORANGE << i->getType() << " " << std::endl;
+	std::cout << "What is the sound of " << j->getType() << " ";
+	j->makeSound(); 
+	std::cout << "What is the sound of " << i->getType() << " ";
 	i->makeSound();
-	std::cout << RED << wrong->getType() << " " << std::endl;
+	std::cout << "What is the sound of " << wrong->getType() << " ";
 	wrong->makeSound();
    	
 	delete meta;

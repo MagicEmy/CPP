@@ -6,24 +6,30 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 19:09:27 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/21 17:06:09 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/07/10 18:14:42 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CAT_HPP
 #define CAT_HPP
 
-#include "AbsAnimal.hpp"
+#include "Brain.hpp"
+#include "AAnimal.hpp"
 
-class Cat : public AbsAnimal
+class Cat : public AAnimal
 {
+	private:
+			Brain	*_brain;
 	public:
 			Cat( void );
 			Cat(const Cat &source);
 			virtual ~Cat( void );
 			Cat & operator = (const Cat &source);
 
-			virtual void makeSound( void ) const;	
+			virtual void makeSound( void ) const;
+			const std::string& getIdea( int i) const;
+			void  setIdea(std::string newIdea, int i);
+
 };
 
 #endif

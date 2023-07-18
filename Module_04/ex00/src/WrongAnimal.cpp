@@ -12,29 +12,33 @@
 
 #include "WrongAnimal.hpp"
 
-WrongAnimal::WrongAnimal(void) : _wrongAnimalType ("Random weird Animal")		
+WrongAnimal::WrongAnimal(void) : _wrongAnimalType ("Wrong Animal")		
 {
-	std::cout 	<< BLUE "Wrong Animal constructor called. Type: " 
-				<< getType() << RESET << std::endl;
+	std::cout 	<< RED "Wrong Animal " << RESET "constructor called" << std::endl;
 }
 
-WrongAnimal::WrongAnimal(const WrongAnimal &source)
+WrongAnimal::WrongAnimal(std::string type ) : _wrongAnimalType (type)		
+{
+	std::cout 	<< "Animal constructor called. Type: " MGNT
+				<< _wrongAnimalType << RESET << std::endl;
+}
+
+WrongAnimal::WrongAnimal(const WrongAnimal &source) : _wrongAnimalType(source._wrongAnimalType)
 {
 	*this = source;
 }
 
 WrongAnimal::~WrongAnimal()
 {
-	std::cout 	<< DMGNT "Wrong Animal distructor called. Type: " 	
-				<< getType() << RESET << std::endl;
+	std::cout 	<< RED "Wrong Animal " << RESET "destructor called" RESET << std::endl;
 }
 
 WrongAnimal& WrongAnimal::operator = (const WrongAnimal &source)
 {
-	if (this != &source) 
-	{
-		setType(source.getType());
-	}
+	if (this == &source)
+		return *this;
+	
+	this->_wrongAnimalType = source._wrongAnimalType;
 	return *this;
 }
 
@@ -43,14 +47,8 @@ const std::string& WrongAnimal::getType( void ) const
 	return _wrongAnimalType;
 }
 
-void WrongAnimal::setType(std::string type)
-{
-	this->_wrongAnimalType = type;
-}
-
 void WrongAnimal::makeSound( void ) const
 {
-	std::cout 	<< BLUE "Overload failed. A " << getType() 
-				<< " sings <In the jungle the mighty jungle a wrong Animal sleeps tonight>"  
-				RESET << std::endl;
+	std::cout 	<< BLUE "Overload failed. " RESET
+				<< "WrongAnimal sound is a weird sound"  << std::endl;
 }

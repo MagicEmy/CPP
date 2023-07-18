@@ -6,32 +6,31 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 19:36:54 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/29 12:22:15 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/07/13 10:35:09 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Dog.hpp"
 
-Dog::Dog(void) : Animal()	
+Dog::Dog(void) : Animal("Dog")	
 {
-	setType("Dog");
 	this->_brain = new Brain();
-	//try and catch
-	std::cout 	<< GREEN "Dog constructor called " << RESET << std::endl;
+	std::cout 	<< "Dog constructor called" GREEN 
+				" Dog brings a ball" << RESET << std::endl;
 }
 
-Dog::Dog(const Dog &source) : Animal()
+Dog::Dog(const Dog &source) : Animal(source._animalType)
 {
-	// this->_brain = new Brain(); ??
-	this->_brain = new Brain(*(source._brain));
-	// *this = source;
+	std::cout << AZURE << "Dog Copy Constructor called" << std::endl;
+	this->_brain = new Brain();
+	*this = source;
 }
 
 Dog::~Dog()
 {
 	delete this->_brain;
-	//try and catch
-	std::cout 	<< DMGNT "Dog distructor called" << RESET << std::endl;
+	std::cout 	<< "Dog destructor called " GREEN 
+				<< "Dog fetches the ball" << RESET << std::endl;
 }
 
 Dog& Dog::operator = (const Dog &source)
@@ -39,54 +38,59 @@ Dog& Dog::operator = (const Dog &source)
 	if (this == &source)
 		return *this;
 	
-	setType(source.getType());
-	
-	delete this->_brain;
-	this->_brain = new Brain(*(source._brain));
+	this->_animalType = source._animalType;
+	*(this->_brain) = *(source._brain);
+	std::cout << BLUE << "Dog Copy Assignment operator called" << std::endl;
 	return *this;
 }
 
 void Dog::makeSound( void ) const
 {
-	std::cout 	<< GREEN "The dog barks to the moon"  RESET << std::endl;
+	std::cout 	<< GREEN "Woof"  RESET << std::endl;
+}
+
+const std::string& Dog::getIdea( int i ) const
+{
+	return (this->_brain->getIdea(i));
+}
+
+void Dog::setIdea(std::string newIdea, int i)
+{
+	this->_brain->setIdea(newIdea, i);
 }
 
 /*
-In the context of the given subject, a shallow copy refers to creating a new 
-object that is a bit-wise copy of the original object. 
-This means that if an object contains pointers to dynamically allocated memory, 
+A deep copy involves creating a new object 
+and duplicating the dynamically allocated memory as well. 
+So, if an object has a pointer to some memory that was allocated using new, 
+a deep copy would allocate new memory and copy the contents 
+from the original memory location to the newly allocated memory. 
+This way, the original object and the copied object would have their 
+own separate memory.
+
 a shallow copy would simply copy the memory addresses without 
 creating new copies of the dynamically allocated memory. 
 As a result, both the original object and the copied object 
 would be pointing to the same memory locations, 
 which can lead to issues when one object is modified or deallocated.
 
-On the other hand, a deep copy involves creating a new object 
-and duplicating the dynamically allocated memory as well. 
-So, if an object has a pointer to some memory that was allocated using new, 
-a deep copy would allocate new memory and copy the contents 
-from the original memory location to the newly allocated memory. 
-This way, the original object and the copied object would have their own separate memory.
-
-In the given subject, it is stated that a copy of a Dog or a Cat 
-mustn't be shallow. This means that when you create a copy 
-of a Dog or a Cat object, you should ensure that the dynamically 
-allocated memory (the Brain object) is also duplicated. 
-In other words, each copy of a Dog or a Cat should have its own 
-separate Brain object, rather than sharing the same Brain object with the original.
-
-To ensure that the copies are deep copies, 
 you need to implement a proper copy constructor and 
 assignment operator for the Dog and Cat classes. 
-These member functions should allocate new memory 
-for the Brain object and copy the contents of the original Brain object 
-to the newly allocated memory. 
-This way, each object will have its own independent copy of the Brain.
 
-After implementing the deep copy mechanism, 
-ou should test it to ensure that it works correctly. 
-You can do this by creating copies of Dog and Cat objects and modifying 
-the ideas array of the original and copied objects separately. 
-If the deep copy is successful, modifying the ideas array of one object 
-should not affect the other object, as they will have separate copies of the Brain object.
+this->_brain and source._brain are pointers to Brain objects.
+*(this->_brain) and *(source._brain) dereference these pointers 
+to access the actual Brain objects.
+The Brain class has its own copy assignment operator that performs 
+a deep copy of the _ideas array.
+Therefore, *(this->_brain) = *(source._brain) invokes the copy assignment 
+operator of the Brain class to copy the array of ideas 
+from the source object's brain to the destination object's brain.
+Finally, the copy assignment operator returns a reference to *this, 
+allowing for chaining multiple assignments if needed.
+
+In summary, the copy constructor for Dog creates a new Brain object and 
+then assigns values from the source object using the copy assignment operator. 
+The copy assignment operator performs a shallow copy of the base class data 
+and a deep copy of the Brain object's data, ensuring that a copy of a Dog object 
+results in a complete and independent replica.
 */

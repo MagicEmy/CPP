@@ -12,28 +12,27 @@
 
 #include "WrongCat.hpp"
 
-WrongCat::WrongCat(void) : WrongAnimal()
+WrongCat::WrongCat(void) : WrongAnimal("Wrong Cat")
 {
-	setType("Wrong Cat");
-	std::cout 	<< RED "Wrong Cat constructor called " << RESET << std::endl;
+	std::cout 	<< DRED "Wrong Cat " << RESET "constructor called " << std::endl;
 }
 
-WrongCat::WrongCat(const WrongCat &source) : WrongAnimal()
+WrongCat::WrongCat(const WrongCat &source) : WrongAnimal(source._wrongAnimalType)
 {
 	*this = source;
 }
 
 WrongCat::~WrongCat()
 {
-	std::cout 	<< DMGNT "Wrong Cat distructor called" << RESET << std::endl;
+	std::cout 	<< DRED "Wrong Cat " << RESET "destructor called" << RESET << std::endl;
 }
 
 WrongCat& WrongCat::operator = (const WrongCat &source)
 {
-	if (this != &source) 
-	{
-		setType(source.getType());
-	}
+	if (this == &source)
+		return *this;
+	
+	this->_wrongAnimalType = source._wrongAnimalType;
 	return *this;
 }
 

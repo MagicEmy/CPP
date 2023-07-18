@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cat.hpp                                            :+:      :+:    :+:   */
+/*   Brain.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/19 19:09:27 by emlicame          #+#    #+#             */
-/*   Updated: 2023/07/10 18:12:21 by emlicame         ###   ########.fr       */
+/*   Created: 2023/06/20 15:22:17 by emlicame          #+#    #+#             */
+/*   Updated: 2023/07/07 19:57:07 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CAT_HPP
-#define CAT_HPP
+#ifndef BRAIN_HPP
+#define BRAIN_HPP
 
-#include "Brain.hpp"
-#include "Animal.hpp"
+#include "Colors.hpp"
+#include <iostream>
+#include <string>
 
-class Cat : public Animal
+class Brain
 {
 	private:
-			Brain	*_brain;
+			std::string _ideas [100];
 	public:
-			Cat( void );
-			Cat(const Cat &source);
-			virtual ~Cat( void );
-			Cat & operator = (const Cat &source);
+			Brain( void );
+			Brain(const Brain &source);
+			~Brain( void );
+			Brain & operator = (const Brain &source);
 
-			virtual void makeSound( void ) const;
 			const std::string& getIdea( int i) const;
 			void  setIdea(std::string newIdea, int i);
 };

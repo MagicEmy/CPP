@@ -22,6 +22,9 @@ class Cure : public AMateria
 			Cure(const Cure &source);
 			virtual ~Cure( void );
 			Cure & operator = (const Cure &source);
+
+			virtual AMateria* clone() const;
+			virtual void use(ICharacter& target);
 };
 
 #endif		//==============CURE_HPP

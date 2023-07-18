@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 15:54:23 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/21 12:19:24 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/07/10 17:34:07 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ class Animal
 			std::string _animalType;
 	public:
 			Animal( void );
+			Animal( std::string type );
 			Animal(const Animal &source);
 			virtual ~Animal( void );
 			Animal & operator = (const Animal &source);
 
 			const std::string& getType( void ) const;
-			void setType(std::string type);
 			
 			virtual void makeSound( void ) const;
 };

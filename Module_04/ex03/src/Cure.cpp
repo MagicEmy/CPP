@@ -6,34 +6,43 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 19:36:54 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/29 12:03:40 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/07/13 12:00:23 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cure.hpp"
 
-Cure::Cure(void) : AMateria()
+Cure::Cure(void) : AMateria("Cure")
 {
 	std::cout 	<< ORANGE "Cure constructor called" << RESET << std::endl;
 }
 
-Cure::Cure(const Cure &source) : AMateria()
+Cure::Cure(const Cure &source) : AMateria(source._AMateriaType)
 {
 	*this = source;
 }
 
 Cure::~Cure()
 {
-	std::cout 	<< DMGNT "Cure distructor called " << RESET << std::endl;
+	std::cout 	<< DMGNT "Cure destructor called " << RESET << std::endl;
 }
 
 Cure& Cure::operator = (const Cure &source)
 {
-	if (this != &source) 
-	{
-		// setType(source.getType());
-	}
+	if (this == &source)
+		return *this;
+
+	this->_AMateriaType = source._AMateriaType;
 	return *this;
 }
 
-AMateria* clone()
+AMateria* Cure::clone() const
+{
+	return (new Cure);
+}
+
+void Cure::use(ICharacter& target)
+{
+	std::cout << " * heals " << target.getName() <<"'s wounds *" << std::endl;
+	
+}

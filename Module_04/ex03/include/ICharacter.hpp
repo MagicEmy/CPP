@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:02:03 by emlicame          #+#    #+#             */
-/*   Updated: 2023/06/29 11:14:47 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/07/11 14:06:02 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ implements that functionality entirely up to the derived class.*/
 #ifndef ICHARACTER_HPP
 #define ICHARACTER_HPP
 
-#include "AMateria.hpp"
+class AMateria;
+#include "AMateria.hpp" // Include AMateria.hpp before class definition
+
 
 class ICharacter
 {

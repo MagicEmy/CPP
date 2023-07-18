@@ -6,7 +6,7 @@
 #    By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/12 14:13:20 by emlicame          #+#    #+#              #
-#    Updated: 2023/06/21 17:08:08 by emlicame         ###   ########.fr        #
+#    Updated: 2023/07/13 11:39:00 by emlicame         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,11 +21,10 @@ DEP 		= $(SRC:%.cpp=$(DEP_DIR)/%.d)
 CC 			= c++
 FLAGS 		= -Wall -Werror -Wextra
 FLAGS 		+= -std=c++98
-# FLAGS 		+= -Wshadow -Wno-shadow
 
 INC 		= -I $(INCLUDE_DIR)
 OBJ 		= $(SRC:%.cpp=obj/%.o)
-SRC 		= main.cpp AbsAnimal.cpp Dog.cpp Cat.cpp
+SRC 		= main.cpp AAnimal.cpp Dog.cpp Cat.cpp Brain.cpp
 
 all: $(NAME)
 

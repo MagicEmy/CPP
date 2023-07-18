@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   AbsAnimal.hpp                                         :+:      :+:    :+:   */
+/*   AAnimal.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,35 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ABSANIMAL_HPP
-#define ABSANIMAL_HPP
+#ifndef AANIMAL_HPP
+#define AANIMAL_HPP
 
 #include <iostream>
 #include <string>
 #include "Colors.hpp"
 
-class AbsAnimal
+class AAnimal
 {
 	protected:
-			std::string _AbsAnimalType;
+			std::string _animalType;
+
 	public:
-			AbsAnimal( void );
-			AbsAnimal(const AbsAnimal &source);
-			virtual ~AbsAnimal( void );
-			AbsAnimal & operator = (const AbsAnimal &source);
+			AAnimal( void );
+			AAnimal( std::string type );
+			AAnimal(const AAnimal &source);
+			virtual ~AAnimal( void );
+			AAnimal & operator = (const AAnimal &source);
 
 			const std::string& getType( void ) const;
-			void setType(std::string type);
 			
-			virtual void makeSound( void ) const = 0; // pure virtual function
+			virtual void makeSound( void ) const = 0; 		// pure virtual function
 			//Animal is now an abstract base class, and can not be instantiated.
 };
 
-#endif		//==============ANIMAL_HPP	
-
-/*
-virtual function resolution only works when a virtual member function 
-is called through a pointer or reference to a class type object. 
-This works because the compiler can differentiate the type of the pointer 
-or reference from the type of the object being pointed to or referenced. 
-*/
+#endif		//==============AANIMAL_HPP	

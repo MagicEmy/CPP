@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   IMateriaSource.hpp                                 :+:      :+:    :+:   */
+/*   MateriaSource.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:06:38 by emlicame          #+#    #+#             */
-/*   Updated: 2023/07/11 12:01:38 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/07/11 14:29:47 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef IMATERIASOURCE_HPP
-#define IMATERIASOURCE_HPP
+#ifndef MATERIASOURCE_HPP
+#define MATERIASOURCE_HPP
 
-#include "AMateria.hpp"
+#include "IMateriaSource.hpp"
 
-class IMateriaSource
+class MateriaSource : public IMateriaSource
 {
+	private:
+			static const int maxSkills = 4;
+			AMateria *_materiaLearned[maxSkills];
 	public:
-			virtual ~IMateriaSource() {}
-			virtual void learnMateria(AMateria*) = 0;
-			virtual AMateria* createMateria(std::string const & type) = 0;
+			MateriaSource();
+			virtual ~MateriaSource();
+			MateriaSource(const MateriaSource &source);
+			MateriaSource& operator = (const MateriaSource &source);
+			virtual void learnMateria(AMateria*);
+			virtual AMateria* createMateria(std::string const & type);
 };
 
-#endif //==============IMATERIASOURCE_HPP
+#endif //==============MATERIASOURCE_HPP
