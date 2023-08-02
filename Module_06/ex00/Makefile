@@ -6,7 +6,7 @@
 #    By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/25 17:01:27 by emlicame          #+#    #+#              #
-#    Updated: 2023/07/25 17:01:47 by emlicame         ###   ########.fr        #
+#    Updated: 2023/07/30 16:51:31 by emlicame         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ FLAGS 		+= -std=c++98
 
 INC 		= -I $(INCLUDE_DIR)
 OBJ 		= $(SRC:%.cpp=obj/%.o)
-SRC 		= 	ScalarConverter.cpp 		\
+SRC 		= 	Converter.cpp 		\
 				main.cpp
 
 all: $(NAME)

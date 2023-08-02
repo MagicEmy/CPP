@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Converter.cpp                                :+:      :+:    :+:   */
+/*   Converter.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/25 17:02:13 by emlicame          #+#    #+#             */
-/*   Updated: 2023/07/26 15:51:24 by emlicame         ###   ########.fr       */
+/*   Created: 2023/07/30 14:58:46 by emlicame          #+#    #+#             */
+/*   Updated: 2023/07/30 19:32:07 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Converter.hpp"
-#include <string>
 
 Converter::Converter( void ) {
 }
@@ -28,7 +27,7 @@ Converter& Converter::operator =(const Converter& src){
 	return (*this);
 }
 
-int dotsCount(std::string input){
+int dotsCount(const std::string& input){
 	int dotCount = 0;
 	size_t pos = input.find('.'); //find the first position
    	while (pos != std::string::npos) {
@@ -38,100 +37,131 @@ int dotsCount(std::string input){
 	return dotCount;
 }
 
-bool isValid(std::string input){
+bool isValid(const std::string& input){
 
-	int i = 0;
-	if (input.at(0) == '+' || input.at(0) == '-' && !isdigit(input.at(1)))
+	int i = 1;
+	if ((input.at(0) == '+' || input.at(0) == '-') && !isdigit(input.at(1)))
 		return false;
-	while (input[i])
+	else
 	{
-		if (!isdigit(input[i]) && input[i] != 'f')
-			return false;
-		else if (!isdigit(input[i]) && input[i] == 'f' && i != input.length())
-			return false;
+		while (input[i])
+		{
+			if (!isdigit(input[i]) && input[i] != 'f' && input[i] != '.')
+				return false;
+			else if (!isdigit(input[i]) && input[i] == 'f' && input[i + 1] != '\0')
+				return false;
+			i++;
+		}
 	}
 	return true;
 }
 
-int	detecType(std::string input) {
-	// detect type char
-	//what is char? ascii or only alpha?
+bool isPseudo(const std::string& input) {
+	if (input == "+inf" || input == "-inf" || input == "nan" || \
+	input == "+inff" || input == "-inff" || input == "nanf")
+		return true;
+	return false;
+}
+int	detecType(const std::string& input) {
+
 	if (input.length() == 1 && isalpha(input[0]))
 		return typeChar;
-
+	if (!std::isprint(input.at(0))) {
+    	std::cerr << "Non-displayable character in literal: " << input << std::endl;
+	    return typeError;
+	}
 	if (isValid(input) == false)
 		return typeError;
-
-	//remember to chck if the input is invalid e.g. 12345abc; ++--245, 0.5ff
+	
+	if(isPseudo(input))
+		return typePseudo;
 	int dotCount = dotsCount(input);
     if (dotCount == 0){
-	// detect type int
-		int i = std::atoi(input.c_str());
-		if (i != 0 || (i == 0 && input[0] == '0'))
-			return typeInt;
+		try {
+            // Attempt to convert to int
+            std::stoi(input);
+            return typeInt;
+        } catch (const std::invalid_argument&) {
+        } catch (const std::out_of_range&) {
+        }
 	}
-	else if (dotCount == 1){
-	//detect type float
-		float f = std::atof(input.c_str());
-		if (f != 0.0f || (f == 0.0f && input[0] == '0'))
-			return typeFloat;
-
-		//detect type double
-		float d = std::atof(input.c_str());
-		if (d != 0.0 || (d == 0.0 && input[0] == '0'))
-			return typeDouble;
+	else if (dotCount == 1 && input.at(input.length() - 1) != 'f'){
+		try {
+            // Attempt to convert to double
+            std::stod(input);
+            return typeDouble;
+        } catch (const std::invalid_argument&) {
+        } catch (const std::out_of_range&) {
+        }
 	}
-
+	else if (dotCount == 1 && input.at(input.length() - 1) == 'f'){
+		try {
+            // Attempt to convert to float
+           	std::stof(input);
+            return typeFloat;
+        } catch (const std::invalid_argument&) {
+        } catch (const std::out_of_range&) {
+        }
+	}
 	// If none of the valid types are detected, the input is invalid.
 	return typeError;
 }
 
-//convert it to a C-style string using c_str()
-
-void Converter::convert(const std::string& input) {
-	int type = 0;
-	char c = 0;
-	int i = 0;
-	float f = 0.0;
-	double d = 0.0;
+void Converter::convert(const std::string& input) 
+{
+	char c;
+	int i;
+	float f;
+	double d;
 	
-	type = detecType(input);
+	int type = detecType(input);
 	switch (type){
 		case typeChar	:
-			char c = input[0];
-			int i = static_cast<const int>(c);
-			float f = static_cast<const float>(c);
-			double d = static_cast<const double>(c);
+			c = input.at(0);
+			std::cout << "Char : " << c << "\n";
+			std::cout << "Int : " << static_cast<const int>(c) << "\n";
+			std::cout << std::fixed << std::setprecision(1) << "Float : " << static_cast<const float>(c) << "f" << "\n";
+			std::cout << std::fixed << std::setprecision(1) << "Double : " << static_cast<const double>(c) << std::endl;
 			break;
 		case typeInt	:
-			int i = std::atoi(input.c_str());
-			char c = static_cast<const char>(i);
-			float f = static_cast<const float>(i);
-			double d = static_cast<const double>(i);
+			i = std::stoi(input);
+			if (i >= 0 && i <= 39)
+				std::cout << "Non displayable" << std::endl;
+			else
+				std::cout << "Char : " << static_cast<const char>(i) << "\n";
+			std::cout << "Int : " << i << "\n";
+			std::cout << std::fixed << std::setprecision(1) << "Float : " << static_cast<const float>(i) << "f" << "\n";
+			std::cout << std::fixed << std::setprecision(1) << "Double : " << static_cast<const double>(i) << std::endl;
 			break;
 		case typeFloat	:
-			float f = std::atof(input.c_str());
-			int i = static_cast<const int>(f);
-			char c = static_cast<const char>(f);
-			double d = static_cast<const double>(f);
+			f = std::stof(input);
+			std::cout << f << "\n";
+			if (f >= 0 && f <= 39)
+				std::cout << "Non displayable" << std::endl;
+			else
+				std::cout << "Char : " << static_cast<const char>(f) << "\n";
+			std::cout << "Int : " << static_cast<const int>(f) << "\n";
+			std::cout << std::fixed << std::setprecision(1) << "Float : " << f << "f" << "\n";
+			std::cout << std::fixed << std::setprecision(1) << "Double : " << static_cast<const double>(f) << std::endl;
 			break;
 		case typeDouble	:
-			double d = std::atof(input.c_str());
-			int i = static_cast<const int>(d);
-			char c = static_cast<const char>(d);
-			float f = static_cast<const float>(d);
+			d = std::stod(input);
+			if (d >= 0 && d <= 39)
+				std::cout << "Non displayable" << std::endl;
+			else
+				std::cout << "Char : " << static_cast<const char>(d) << "\n";
+			std::cout << "Int : " << static_cast<const int>(d) << "\n";
+			std::cout << std::fixed << std::setprecision(1) << "Float : " << static_cast<const float>(d) << "f" << "\n";
+			std::cout << std::fixed << std::setprecision(1) << "Double : " << d << std::endl;
+			break;
+		case typePseudo :
+			std::cout << "Char : impossible conversion\n";
+			std::cout << "Int : impossible conversion\n";
+			std::cout << std::fixed << std::setprecision(1) << "Float : " << std::stof(input) << "f" << "\n";
+			std::cout << std::fixed << std::setprecision(1) << "Double : " << std::stod(input) << std::endl;
 			break;
 		case typeError	:
 			std::cout << "Invalid input: " << input << std::endl;
 			break;
 	};
 }
-
-/*
-detec type
-	-parse the input if valid or not vaid
-	-check the infinity and nan
-convert for evry case
-
-format printing
-*/

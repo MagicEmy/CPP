@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:50:47 by emlicame          #+#    #+#             */
-/*   Updated: 2023/07/26 18:35:17 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/07/30 20:43:46 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@
 
 #include <string>
 #include <iostream>
+#include <iomanip>
+#include <limits>
 
 enum Type {
 	typeChar,
 	typeInt,
 	typeFloat,
 	typeDouble,
+	typePseudo,
 	typeError
 };
 

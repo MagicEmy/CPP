@@ -6,20 +6,24 @@
 /*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 18:23:10 by emlicame          #+#    #+#             */
-/*   Updated: 2023/07/25 18:28:46 by emlicame         ###   ########.fr       */
+/*   Updated: 2023/07/30 18:22:47 by emlicame         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ScalarConverter.hpp"
+#include "Converter.hpp"
+#include <string>
 
-int main() {
+int main(int argc, char** argv) {
 
-    ScalarConverter::convert("c");
-    ScalarConverter::convert("42");
-    ScalarConverter::convert("4.2f");
-    ScalarConverter::convert("3.14159");
-    ScalarConverter::convert("-inff");
-    ScalarConverter::convert("nanf");
-
+	if (argc != 2){
+		std::cout << "Wrong input, please enter a string with a valid literal" << std::endl;
+		return 0;
+	}
+	std::string input = argv[1];
+	if (input.empty()){
+		std::cout << "Error: empty string" << std::endl;
+		return 0;
+	}
+    Converter::convert(input);
     return 0;
 }
