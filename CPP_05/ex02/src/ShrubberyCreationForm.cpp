@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ShrubberyCreationForm.cpp                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: emlicame <emlicame@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/24 14:13:00 by emlicame          #+#    #+#             */
-/*   Updated: 2023/07/25 18:45:44 by emlicame         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   ShrubberyCreationForm.cpp                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: emlicame <emlicame@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/07/24 14:13:00 by emlicame      #+#    #+#                 */
+/*   Updated: 2024/01/02 14:07:52 by emlicame      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static char tree[] = {
 void ShrubberyCreationForm::execute(Bureaucrat const & executor) const{
 
 	checkExecution(executor);
-	std::ofstream	outFile(this->_target + "_shrubbery");
+	std::ofstream	outFile((this->_target + "_shrubbery").c_str());
 	
 	if (!outFile.is_open())
 	{
