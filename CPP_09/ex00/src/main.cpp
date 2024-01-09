@@ -1,11 +1,5 @@
 #include "BitcoinExchange.hpp"
 #include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <fcntl.h>
-#include <unistd.h>
-#include <filesystem>
 
 #define MAX 4096
 int main (int argc, char **argv)

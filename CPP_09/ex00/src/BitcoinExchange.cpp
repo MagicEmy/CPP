@@ -1,116 +1,155 @@
 #include "BitcoinExchange.hpp"
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
 
-BitcoinExchange::BitcoinExchange() {
-
-	std::cout << "BitcoinExchange constructor called" << std::endl;
-}
+BitcoinExchange::BitcoinExchange() {}
 
 BitcoinExchange::BitcoinExchange(const std::string& filename) {
 
-	std::cout << "BitcoinExchange constructor called" << std::endl;
-	this->parseFile(filename);
-}	
-
-BitcoinExchange::~BitcoinExchange() {
-	//clear map
-	std::cout << "BitcoinExchange destructor called" << std::endl;
+	try
+	{
+		this->loadDatabase();
+		this->parseFile(filename);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	
 }
 
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &src) {
 
-BitcoinExchange::BitcoinExchange(const BitcoinExchange &other) {
-
-	*this = other;
+	*this = src;
 }
 
-BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other) {
+BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &src) {
 
-	if (this != &other) {
-		// Do stuff
+	if (this != &src) {
+		this->dateValueMap = src.dateValueMap;
 	}
 	return (*this);
 }
+
+BitcoinExchange::~BitcoinExchange() {
+
+	dateValueMap.clear();
+}
+
+void BitcoinExchange::loadDatabase() {
+
+	std::ifstream dataFile("data.csv");
+
+	if (!dataFile) {
+		std::cout << "Error: Can't open file" << std::endl;
+		throw std::runtime_error("Can't open file");
+	}
+
+	dataFile.seekg(0, std::ios::end);
+	size_t size = dataFile.tellg();
+	if (size == 0) {
+		std::cout << "Error: File is empty" << std::endl;
+		throw std::runtime_error("File is empty");
+	}
+	dataFile.seekg(0, std::ios::beg);
+	std::string line;
+	while (std::getline(dataFile, line)) {
+		if (std::strcmp(line.c_str(), "date,exchange_rate") == 0)
+			continue;
+
+		try	{
+			parseLine(line, ',');
+			std::string date = line.substr(0, line.find(',')); // e.g 2022-01-15,43146.53
+			dateValueMap[date] = std::stof(line.substr(line.find(',') + 1, line.length()));			
+		}
+		catch(const std::exception& e) {
+			std::cerr << e.what() << '\n';
+		}
+	}
+	dataFile.close();
+}
+
+
 
 void BitcoinExchange::parseFile(const std::string& filename) {
 
 	std::ifstream inFile(filename);
 
-	if (!inFile) {
-		std::cout << "Error: Can't open file" << std::endl;
+	if (!inFile) 
 		throw std::runtime_error("Can't open file");
-	}
 
 	inFile.seekg(0, std::ios::end);
 	size_t size = inFile.tellg();
-	if (size == 0) {
-		std::cout << "Error: File is empty" << std::endl;
+	if (size == 0)
 		throw std::runtime_error("File is empty");
-	}
+	
 	inFile.seekg(0, std::ios::beg);
 	std::string line;
 	while (std::getline(inFile, line)) {
-		if (!this->parseLine(line)) {
-			throw std::runtime_error("Invalid line");
+		if (std::strcmp(line.c_str(), "date | value") == 0)
+			continue;
+		try	{
+			parseLine(line, '|');
+		}
+		catch(const std::exception& e) {
+			std::cerr << e.what() << '\n';
 		}
 	}
 	inFile.close();
 }
 
-int BitcoinExchange::parseLine(std::string& line) {
+void BitcoinExchange::parseLine(std::string& line, char delim ) {
 
 		std::stringstream ss(line);
-		std::string date, valueStr;
-		std::getline(ss, date, '|');
-		std::getline(ss, valueStr);
-		float value = std::stof(valueStr);
+		std::string date = "";
+		float value = 0.0f;
+		ss >> date >> delim >> value;
+		
+		// Date validation
+		std::tm tm = {};
+		std::stringstream date_ss(date);
 
-		if (value < 0 || value > 1000) {
-			std::cout << "Error: Invalid value in line - " << line << std::endl;
-			return 0;
-		}
-		return 1;
+		date_ss >> std::get_time(&tm, "%Y-%m-%d"); // "YYYY-MM-DD" format
+		if (date_ss.fail()) 
+			throw std::runtime_error("Error: Invalid date " + date_ss.str());
+
+		//Value validation
+		if (value < 0 || value > 1000)
+			throw std::runtime_error("Error: Invalid value " + std::to_string(static_cast<int>(value)));
+		if (delim == '|')
+			std::cout << date << " => " << value << " = " << value * this->run(date) << std::endl;
+		
 }
 
-void BitcoinExchange::run() {
+float BitcoinExchange::run(std::string& date) {
 
-	std::cout << "BitcoinExchange run method called" << std::endl;
+	std::map<std::string, float>::const_iterator it = dateValueMap.lower_bound(date);
+
+    // If 'it' points to the end of _data, return the last element in _data
+    if (it == dateValueMap.end())
+        return (dateValueMap.rbegin()->second);
+
+    // If the date of 'it' is greater than 'date'
+    if (it->first > date) {
+        // If 'it' points to the beginning of dateValueMap, return its rate
+        if (it == dateValueMap.begin())
+            return (it->second);
+        // Otherwise, return the rate of the previous day
+        return (std::prev(it)->second);
+    }
+	// If none of the above conditions are met, return the rate of 'it'
+    return (it->second);
 }
 
 
-/*
 
-read the file line by line
-parse each line
+// std::map<std::string, float>::iterator begin = this->dateValueMap.begin();
+// std::map<std::string, float>::iterator end = this->dateValueMap.end();
+// for (std::map<std::string, float>::iterator it = begin; it != end; ++it) {
+// 	std::cout << it->first << " => " << it->second << '\n';
+// }
+// std::cout << dateValueMap.size() << std::endl;
+// }
 
-if file is not well formated, throw exception
-
-fill the map with the data from the file
-check if the line is well formated
-if not, throw exception
-	if yes, parse the line
-		check if the date is already in the map
-			if yes, add the value to the existing one
-			if no, add the date and the value to the map
-
-
-only digits and dots are allowed in the price
-only digits are allowed in the date
-only positive numbers are allowed in the quantity
-valid price format: 0.0 (float or integer)
-valid date format: YYYY-MM-DD
-valid quantity format: 0
-valid range for quantity: 0-1000
-
-if the date is already in the map, add the value to the existing one
-if the date is not in the map, add the date and the value to the map
-
-if parsing ok
-
-date | value
-2011-01-03 | 3
-
-Output:
-2011-01-03 => 3 = 0.9
-date | value => quantity = price
-
-*/
