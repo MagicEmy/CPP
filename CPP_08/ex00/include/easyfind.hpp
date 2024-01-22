@@ -6,7 +6,7 @@
 /*   By: emlicame <emlicame@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/20 18:36:46 by emlicame      #+#    #+#                 */
-/*   Updated: 2023/12/29 10:39:58 by emanuela      ########   odam.nl         */
+/*   Updated: 2024/01/15 19:38:36 by emlicame      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,17 @@ typename T::iterator easyfind(T &container, int n){
 		// throw std::exception();
 }
 
-
 #endif
 
-//calculate the index 
-//size_t index = std::distance(container.begin(), it);
+/*
+template <typename T>
+typename T::iterator easyfind(T &container, int n){
+	return find(container.begin(), container.end(), n);
+}
+
+template <typename T>
+typename T::iterator easyfind(const T &container, int n){
+
+	return find(container.begin(), container.end(), n);
+}
+*/

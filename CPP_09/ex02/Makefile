@@ -1,4 +1,4 @@
-NAME 		= MutantStack
+NAME 		= PmergeMe
 
 INCLUDE_DIR = include
 
@@ -9,12 +9,12 @@ DEP 		= $(SRC:%.cpp=$(DEP_DIR)/%.d)
 
 CC 			= c++
 FLAGS 		= -Wall -Werror -Wextra
-FLAGS 		+= -std=c++11
+# FLAGS 		+= -std=c++98
 # FLAGS 		+= -fsanitize=address
 
 INC 		= -I $(INCLUDE_DIR)
 OBJ 		= $(SRC:%.cpp=$(OBJ_DIR)/%.o)
-SRC 		= main.cpp
+SRC 		= main.cpp PmergeMe.cpp
 
 all: $(NAME)
 

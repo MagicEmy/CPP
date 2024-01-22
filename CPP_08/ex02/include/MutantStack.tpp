@@ -1,24 +1,5 @@
 
 template <typename T>
-MutantStack<T>::MutantStack() : std::stack<T>() {}
-
-template <typename T>
-MutantStack<T>::MutantStack(MutantStack const &src) : std::stack<T>(src) {}
-
-template <typename T>
-MutantStack<T>	&MutantStack<T>::operator=(MutantStack const &src) {
-	if (this != &src)
-		std::stack<T>::operator=(src);
-	return *this;
-}
-
-template <typename T>
-MutantStack<T>::~MutantStack() {
-
-	this->c.clear();
-}
-
-template <typename T>
 typename MutantStack<T>::iterator MutantStack<T>::begin() {
 	return this->c.begin();
 }
@@ -56,6 +37,11 @@ typename MutantStack<T>::reverse_iterator MutantStack<T>::rend() {
 template <typename T>
 typename MutantStack<T>::const_reverse_iterator MutantStack<T>::rend() const {
 	return this->c.rend();
+}
+
+template <typename T>
+void MutantStack<T>::clear() {
+	this->c.clear();
 }
 
 

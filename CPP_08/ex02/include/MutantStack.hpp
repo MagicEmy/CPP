@@ -8,24 +8,36 @@ template <typename T>
 class MutantStack : public std::stack<T>
 {
 	public:
-		MutantStack();
-		MutantStack(MutantStack const &src); //std::stack does not have a public copy constructor, so this line will cause a compilation error.
-		MutantStack &operator=(MutantStack const &src);
-		~MutantStack();
+		// MutantStack();
+		// MutantStack(MutantStack const &src); //std::stack does not have a public copy constructor, so this line will cause a compilation error.
+		// MutantStack &operator=(MutantStack const &src);
+		// ~MutantStack();
 
-		typedef typename std::stack<T>::container_type::iterator iterator;
+		using container_type = typename std::stack<T>::container_type;
+		using iterator = typename container_type::iterator;
+		using const_iterator = typename container_type::const_iterator;
+		using reverse_iterator = typename container_type::reverse_iterator;
+		using const_reverse_iterator = typename container_type::const_reverse_iterator;
+
+		template <typename E>
+		using stack_t = std::stack<E>;
+
+		//typedef typename std::stack<T>::container_type::iterator iterator;	
+		//typedef typename std::stack<T>::container_type container_type;
+		// typedef typename container_type::iterator iterator;
 		iterator begin();
 		iterator end();
-		typedef typename std::stack<T>::container_type::reverse_iterator reverse_iterator;
+		// typedef typename container_type::reverse_iterator reverse_iterator;
 		reverse_iterator rbegin();
 		reverse_iterator rend();
 		
-		typedef typename std::stack<T>::container_type::const_iterator const_iterator;
+		// typedef typename container_type::const_iterator const_iterator;
 		const_iterator begin() const;
 		const_iterator end() const;
-		typedef typename std::stack<T>::container_type::const_reverse_iterator const_reverse_iterator;
+		// typedef typename container_type::const_reverse_iterator const_reverse_iterator;
 		const_reverse_iterator rbegin() const;
 		const_reverse_iterator rend() const;
+		void clear();
 
 };
 
@@ -35,9 +47,9 @@ class MutantStack : public std::stack<T>
 
 /*
 
-typedef typename std::stack<T>::container_type::iterator iterator;
-This line is defining a type alias named iterator that corresponds to the 
-iterator type of the underlying container of std::stack<T>. Here’s a breakdown:
+std::stack is a container adapter that uses an encapsulated object of a specific container class as its underlying container, 
+providing a specific set of member functions to access its elements. 
+The underlying container can be accessed through the protected member c.
 
 std::stack<T>::container_type: 
 This is the type of the underlying container used by std::stack<T>. 
