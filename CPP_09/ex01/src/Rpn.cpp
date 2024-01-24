@@ -2,6 +2,7 @@
 #include <cctype>
 #include <stdexcept>
 
+#include <iostream>
 
 std::stack<double> opStack;
 
@@ -14,7 +15,12 @@ void performOperation(char op) {
 	case '+': opStack.top() += op1; break;
 	case '-': opStack.top() -= op1; break;
 	case '*': opStack.top() *= op1; break;
-	case '/': opStack.top() /= op1; break;
+	case '/': 
+		if (op1 != 0)
+			opStack.top() /= op1;
+		else
+			throw std::runtime_error("Error: Invalid expression - division by zero");
+		break;
 	}
 }
 
@@ -33,12 +39,16 @@ double RPNCalculator::calculate(const std::string& expression) {
 		else if (isOperator(c)) {
 			if (opStack.size() < 2)
 				throw std::runtime_error("Error: Invalid expression");
-			performOperation(c);
-        }
-		else if (c != ' ')
+			try {
+					performOperation(c);
+				} 
+				catch(const std::exception& e) {
+					throw; 
+				}	
+		}else if (c != ' ')
             throw std::invalid_argument("Error: Invalid character found in the expression.");
 	}
 	if (opStack.size() != 1)
-		throw std::runtime_error("Error: Invalid expression");
+		throw std::runtime_error("Error: Invalid expression - too many operands");
     return opStack.top();
 }

@@ -2,19 +2,37 @@
 #define PMERGEME_HPP
 
 #include <vector>
-#include <list>
+#include <deque>
 #include <chrono>
 #include <string>
 
-namespace PmergeMe {
-    using Clock = std::chrono::high_resolution_clock;
+class PmergeMe
+{
+	private:
+			std::vector<int>	_sequence;
+			std::deque<int>		_deSequence;
+			std::vector<int>	_jacobsthalNumbers;
 
-    void displaySequence(const std::vector<int>& sequence, const std::string& message);
-	void displaySequence(const std::list<int>& sequence, const std::string& message);
-    void displayTime(const Clock::time_point& start, const Clock::time_point& end, const std::string& containerType);
+			void generateJacobsthalNumbers();
+			bool inputValidation(int argc, char **argv);
+			void mergeInsert(const std::vector<int>& input, std::vector<int>& sorted, std::vector<int>& toSort);
+			void splitAndSortVect(const std::vector<int>& vectInput, std::vector<int>& sorted, std::vector<int>& toSort );
+			void mergeInsertDeque(const std::deque<int>& input, std::deque<int>& sorted, std::deque<int>& toSort);
+			void splitAndSortDeque(const std::deque<int>& dequeInput, std::deque<int>& sorted, std::deque<int>& toSort );
+			void displayTimeVec(const std::string& containerType, const std::chrono::microseconds& duration);
+			void displayTimeDeq(const std::string& containerType, const std::chrono::microseconds& duration);
+			
+	public:
+			PmergeMe();
+			~PmergeMe();
+			PmergeMe(const PmergeMe &src);
+			PmergeMe &operator=(const PmergeMe &src);
 
-    // void fordJohnsonSort(std::vector<int>& sequence);
-    // void fordJohnsonSort(std::list<int>& sequence);
-}
+			void parse(int argc, char **argv);
+			void run( void );
+};
 
 #endif // PMERGEME_HPP
+
+
+

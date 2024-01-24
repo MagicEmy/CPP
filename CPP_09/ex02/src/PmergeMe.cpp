@@ -1,68 +1,208 @@
 #include "PmergeMe.hpp"
 #include <iostream>
-#include <algorithm>
+#include <set>
+#include <iomanip>
+#include <fstream>
+#include <stdexcept>
+#include <climits>
 
-namespace PmergeMe {
-    using namespace std;
-    using namespace chrono;
 
-	// template <typename Container>
-    // void displaySequence(const Container& sequence, const std::string& message) {
+typedef std::pair<int,int>	pair;
+
+PmergeMe::PmergeMe() : _sequence(), _deSequence() {
+	
+	generateJacobsthalNumbers();
+}
+
+void PmergeMe::generateJacobsthalNumbers() {
+    std::vector<int> jacobsthalNumbers;
     
-	// 	std::cout << message << ": ";
+    int a = 0;
+    int b = 1;
 
-    // 	// Using iterators to iterate over the container
-    // 	for (typename Container::const_iterator it = sequence.begin(); it != sequence.end(); ++it) {
-    //     	std::cout << *it << " ";
-    // 	}
+    for (int i = 0; i < 30; ++i) {
+		if (i > 1)
+	        _jacobsthalNumbers.push_back(a);
+        int temp = a;
+        a = b;
+        b = b + 2 * temp;
+    }
+}
 
-    // 	std::cout << std::endl;
-	// }
+PmergeMe::~PmergeMe() {}
 
-	void displaySequence(const std::vector<int>& sequence, const std::string& message) {
-		std::cout << message << ": ";
-		
-    	// Using iterators to iterate over the container
-    	for (std::vector<int>::const_iterator it = sequence.begin(); it != sequence.end(); ++it) {
-        	std::cout << *it << " ";
-    	}
+PmergeMe::PmergeMe(const PmergeMe &src) : _sequence(src._sequence), _deSequence(src._deSequence) {
+	*this = src;
+}
 
-    	std::cout << std::endl;
+PmergeMe &PmergeMe::operator=(const PmergeMe &src) {
+	if (this == &src)
+		return *this;
+	this->_sequence = src._sequence;
+	this->_deSequence = src._deSequence;
+	return *this;
+}
+
+bool hasDuplicates(std::vector<int>& vec) {
+    std::set<int> s(vec.begin(), vec.end());
+    return s.size() < vec.size();
+}
+
+void isnumber(std::string str) {
+    if (str.empty())
+        throw std::runtime_error("Empty string");
+    for (std::string::iterator it = str.begin(); it != str.end(); it++) {
+        if (isdigit(*it) == false)
+            throw std::runtime_error("The input is not valid, please enter only positive numbers");    
+    }
+}
+
+bool	PmergeMe::inputValidation(int argc, char **argv) {
+	if (argc == 1)
+		return (false);
+	for (int i = 1; argv[i]; i++) {
+		try {
+			if (argv[i][0] == '+')
+				argv[i]++;
+			isnumber(argv[i]);
+			if (std::stoi(argv[i]) > INT_MAX)
+				throw std::out_of_range("number is too big");    
+			_sequence.push_back(std::stoi(argv[i]));
+		} catch (const std::exception& e) {
+			throw;
+		}
 	}
+	return (true);
+}
 
-	void displaySequence(const std::list<int>& sequence, const std::string& message) {
-		std::cout << message << ": ";
+void	PmergeMe::parse(int argc, char **argv) {
 
-		for (std::list<int>::const_iterator it = sequence.begin(); it != sequence.end(); ++it) {
-        	std::cout << *it << " ";
-    	}
+	try {
+			inputValidation(argc, argv);
+			if (hasDuplicates(_sequence))
+        		throw std::runtime_error("Duplicate numbers found");
+		} catch (const std::exception& e) {
+			throw;
+		}
 
+	_deSequence.assign(_sequence.begin(), _sequence.end());
 
+	std::cout << "Input Before sorting: ";
+	if (_sequence.size() > 20) {
+		for (std::vector<int>::const_iterator it = _sequence.begin(); it != _sequence.begin() + 10; ++it) {
+        	std::cout << *it << " "; }
+		std::cout << "[...]";
+		std::cout << std::endl;
+	}
+	else {
+		for (std::vector<int>::const_iterator it = _sequence.begin(); it != _sequence.end(); ++it) {
+			std::cout << *it << " ";
+		}
+		std::cout << std::endl;
+	}
+}
+
+void	PmergeMe::run() {
+
+	std::vector<int> sorted;
+    std::vector<int> toSort;
+	std::deque<int> dSorted;
+    std::deque<int> dtoSort;
+
+	auto startTime = std::chrono::high_resolution_clock::now();
+	splitAndSortVect(_sequence, sorted, toSort);
+	mergeInsert(_sequence, sorted, toSort);
+	auto endTime = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime);
+
+	auto startTimeDeq = std::chrono::high_resolution_clock::now();
+	splitAndSortDeque(_deSequence, dSorted, dtoSort);
+	mergeInsertDeque(_deSequence, dSorted, dtoSort);
+	auto endTimeDeq = std::chrono::high_resolution_clock::now();
+    auto durationDeq = std::chrono::duration_cast<std::chrono::microseconds>(endTimeDeq - startTimeDeq);
+
+	std::cout << "Input  After sorting: ";
+
+	if (_sequence.size() > 10) {
+		for (std::vector<int>::const_iterator it = sorted.begin(); it != sorted.begin() + 10; ++it) {
+        	std::cout << *it << " "; }
+		std::cout << "[...]";
+		std::cout << std::endl;
+		std::ofstream file("output.txt");
+		if (!file.is_open())
+			throw std::runtime_error("Error opening file");
+		for (std::vector<int>::const_iterator it = sorted.begin(); it != sorted.end(); ++it) {
+        	file << *it << " ";
+   		}
+    	file << std::endl;
+		file.close();
+	}
+	else {
+		for (std::vector<int>::const_iterator it = sorted.begin(); it != sorted.end(); ++it) {
+			std::cout << *it << " ";
+		}
 		std::cout << std::endl;
 	}
 
-    void displayTime(const Clock::time_point& start, const Clock::time_point& end, const string& containerType) {
-        auto duration = duration_cast<microseconds>(end - start).count();
-        cout << "Time to process a range with " << containerType << " : " << duration << " us" << endl;
-    }
-
-    // void fordJohnsonSort(vector<int>& sequence) {
-    //     Clock::time_point start = Clock::now();
-
-        // Implement Ford-Johnson sort for vector
-        // (Replace this with your Ford-Johnson algorithm implementation)
-
-    //     Clock::time_point end = Clock::now();
-    //     displayTime(start, end, "std::vector");
-    // }
-
-    // void fordJohnsonSort(list<int>& sequence) {
-    //     Clock::time_point start = Clock::now();
-
-        // Implement Ford-Johnson sort for list
-        // (Replace this with your Ford-Johnson algorithm implementation)
-
-//         Clock::time_point end = Clock::now();
-//         displayTime(start, end, "std::list");
-//     }
+	displayTimeVec("vector", duration);
+	displayTimeDeq("deque", durationDeq);
 }
+
+void PmergeMe::displayTimeVec(const std::string& containerType, const std::chrono::microseconds& duration) {
+	
+	std::cout << "Time to process a range of " << _sequence.size() << " elements with " << containerType
+              << " : " << std::fixed << std::setprecision(5) << static_cast<double>(duration.count())/1000 << " microseconds" << std::endl;
+}
+
+void PmergeMe::displayTimeDeq(const std::string& containerType, const std::chrono::microseconds& duration) {
+	
+	std::cout << "Time to process a range of " << _deSequence.size() << " elements with " << containerType
+              << " : " << std::fixed << std::setprecision(5) << static_cast<double>(duration.count())/1000 << " microseconds" << std::endl;
+}
+
+
+/*
+
+Merge sort :
+we split the given array in two parts and sort them individually and then we merges 
+the both sorted halves. It is based on divide and conquer algorithm.
+we divide the the given array into two equal halves untill only single element is left i.e, 
+the array cannot be divide further.
+Insertion sort :
+It is a simple sorting algorithm
+we pick an element and insert it into its correct position in the sorted array.
+binary insertion sort algorithm using Jacobsthal numbers as a guide for efficient insertion.
+
+The algorithm first sorts the first elements in pairs then sorted in descending order.
+Then it starts inserting the second elements of the pairs into vec at positions 
+determined by the Jacobsthal sequence. 
+The idea here is that the Jacobsthal sequence provides a set of positions 
+that are spread out in a way that makes the insertions more efficient.
+Using std::lower_bound function from the C++ Standard Library to find the insertion position. 
+This function performs a binary search and returns an iterator pointing 
+to the first element that is not less than target, or container.end()
+
+std::cout << "Jacobsthal Numbers: {";
+	for (size_t i = 0; i < _jacobsthalNumbers.size(); ++i) {
+    	std::cout << _jacobsthalNumbers[i];
+   		if (i < _jacobsthalNumbers.size() - 1) {
+        	std::cout << ", ";
+    	}
+	}
+	std::cout << "}" << std::endl;
+
+Jacobsthal numbers are an integer sequence related to Fibonacci numbers. Similar to Fibonacci, where each term is the sum of the previous two terms, each term is the sum of the previous, plus twice the one before that. Traditionally the sequence starts with the given terms 0, 1.
+
+   J0 = 0
+   J1 = 1
+   Jn = Jn-1 + 2 × Jn-2
+
+Jacobsthal numbers are a sequence of integers where each number is the sum of twice the previous 
+number and the number before that. 
+0, 1, 1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461, 10923, 21845, 43691, 87381, 174763, 349525
+binary insertion sort algorithm using Jacobsthal numbers as a guide for efficient insertion.
+
+https://iq.opengenus.org/merge-insertion-sort/
+https://rosettacode.org/wiki/Jacobsthal_numbers
+
+*/
