@@ -12,25 +12,20 @@ void binaryInsert(std::vector<int>& vect, int newItem, unsigned int max_range)  
 }
 
 // merging operation using pairs in sorted(A) and toSort(B). It uses the Jacobsthal sequence to determine the insertion points for the elements in toSort into the sorted vector.
-void PmergeMe::mergeInsert(const std::vector<int>& input, std::vector<int>& sorted, std::vector<int>& toSort) {
+void PmergeMe::mergeInsertVect(const std::vector<int>& input, std::vector<int>& sorted, std::vector<int>& toSort) {
 
     unsigned int nPairs = input.size() / 2;
     unsigned int inserted = 0;
 
-    if (toSort.empty())
+    if (toSort.empty()){
         return;
+	}
 
 	binaryInsert(sorted, toSort[0], inserted++);
 
 	for (std::vector<int>::iterator it = _jacobsthalNumbers.begin() + 1; it != _jacobsthalNumbers.end(); ++it) {
-		if (*it < 5){
-	    	for (int x = std::min<int>(*it, nPairs - 1); x > 0 && x >= *(it - 1); x--) 
-    	  		binaryInsert(sorted, toSort[x], inserted++ + x);
-		}
-		else {
-			for (int x = std::min<int>(*it, nPairs - 1); x > 0 && x > *(it - 1); x--)
-				binaryInsert(sorted, toSort[x], inserted++ + x);
-		}
+		for (int x = std::min<int>(*it, nPairs - 1); x > 0 && x > *(it - 1); x--)
+			binaryInsert(sorted, toSort[x], inserted++ + x);
 	}
     // If the input vector size is odd
     if (input.size() % 2)
@@ -78,5 +73,6 @@ void PmergeMe::splitAndSortVect(const std::vector<int>& vectInput, std::vector<i
 		sorted.push_back(vectPairs[i].first);
 		toSort.push_back(vectPairs[i].second);
 	}
+	//The sorted vector contains the first elements of the pairs in descending order, and the toSort vector contains the second elements of the pairs in descending order.
 }
 

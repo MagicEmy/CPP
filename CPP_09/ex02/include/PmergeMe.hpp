@@ -12,15 +12,17 @@ class PmergeMe
 			std::vector<int>	_sequence;
 			std::deque<int>		_deSequence;
 			std::vector<int>	_jacobsthalNumbers;
+			int					_maxValue;
 
 			void generateJacobsthalNumbers();
 			bool inputValidation(int argc, char **argv);
-			void mergeInsert(const std::vector<int>& input, std::vector<int>& sorted, std::vector<int>& toSort);
+			void mergeInsertVect(const std::vector<int>& input, std::vector<int>& sorted, std::vector<int>& toSort);
 			void splitAndSortVect(const std::vector<int>& vectInput, std::vector<int>& sorted, std::vector<int>& toSort );
 			void mergeInsertDeque(const std::deque<int>& input, std::deque<int>& sorted, std::deque<int>& toSort);
 			void splitAndSortDeque(const std::deque<int>& dequeInput, std::deque<int>& sorted, std::deque<int>& toSort );
 			void displayTimeVec(const std::string& containerType, const std::chrono::microseconds& duration);
 			void displayTimeDeq(const std::string& containerType, const std::chrono::microseconds& duration);
+			bool hasDuplicates(std::vector<int>& vec);
 			
 	public:
 			PmergeMe();

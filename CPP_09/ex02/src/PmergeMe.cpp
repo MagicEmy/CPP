@@ -9,30 +9,12 @@
 
 typedef std::pair<int,int>	pair;
 
-PmergeMe::PmergeMe() : _sequence(), _deSequence(), _jacobsthalNumbers() {
-	
-	generateJacobsthalNumbers();
-}
-
-void PmergeMe::generateJacobsthalNumbers() {
-    std::vector<int> jacobsthalNumbers;
-    
-    int a = 0;
-    int b = 1;
-
-    for (size_t i = 0; i < 28; ++i) {
-		if (i > 1)
-	        _jacobsthalNumbers.push_back(a);
-        int temp = a;
-        a = b;
-        b = b + 2 * temp;
-    }
-	
-}
+PmergeMe::PmergeMe() : _sequence(), _deSequence(), _jacobsthalNumbers(), _maxValue(0) {}
 
 PmergeMe::~PmergeMe() {}
 
-PmergeMe::PmergeMe(const PmergeMe &src) : _sequence(src._sequence), _deSequence(src._deSequence), _jacobsthalNumbers(src._jacobsthalNumbers){
+PmergeMe::PmergeMe(const PmergeMe &src) : _sequence(src._sequence), _deSequence(src._deSequence), 
+										_jacobsthalNumbers(src._jacobsthalNumbers), _maxValue(src._maxValue) {
 	*this = src;
 }
 
@@ -42,11 +24,27 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &src) {
 	this->_sequence = src._sequence;
 	this->_deSequence = src._deSequence;
 	this->_jacobsthalNumbers = src._jacobsthalNumbers;
+	this->_maxValue = src._maxValue;
 	return *this;
 }
 
-bool hasDuplicates(std::vector<int>& vec) {
+void PmergeMe::generateJacobsthalNumbers() {
+
+    int a = 0;
+    int b = 1;
+
+    while (a <= this->_maxValue) {
+	    _jacobsthalNumbers.push_back(a);
+        int temp = a;
+        a = b;
+        b = b + 2 * temp;
+    }
+}
+
+bool PmergeMe::hasDuplicates(std::vector<int>& vec) {
     std::set<int> s(vec.begin(), vec.end());
+	if (!s.empty())
+        this->_maxValue = *(s.rbegin());
     return s.size() < vec.size();
 }
 
@@ -87,6 +85,7 @@ void	PmergeMe::parse(int argc, char **argv) {
 			throw;
 		}
 
+	generateJacobsthalNumbers();
 	_deSequence.assign(_sequence.begin(), _sequence.end());
 
 	std::cout << "Input Before sorting: ";
@@ -121,7 +120,7 @@ void	PmergeMe::run() {
 
 	auto startTime = std::chrono::high_resolution_clock::now();
 	splitAndSortVect(_sequence, sorted, toSort);
-	mergeInsert(_sequence, sorted, toSort);
+	mergeInsertVect(_sequence, sorted, toSort);
 	auto endTime = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime);
 
