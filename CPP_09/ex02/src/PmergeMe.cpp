@@ -170,36 +170,8 @@ void PmergeMe::displayTimeDeq(const std::string& containerType, const std::chron
 }
 
 
+
 /*
-
-Merge sort :
-we split the given array in two parts and sort them individually and then we merges 
-the both sorted halves. It is based on divide and conquer algorithm.
-we divide the the given array into two equal halves untill only single element is left i.e, 
-the array cannot be divide further.
-Insertion sort :
-It is a simple sorting algorithm
-we pick an element and insert it into its correct position in the sorted array.
-binary insertion sort algorithm using Jacobsthal numbers as a guide for efficient insertion.
-
-The algorithm first sorts the first elements in pairs then sorted in descending order.
-Then it starts inserting the second elements of the pairs into vec at positions 
-determined by the Jacobsthal sequence. 
-The idea here is that the Jacobsthal sequence provides a set of positions 
-that are spread out in a way that makes the insertions more efficient.
-Using std::lower_bound function from the C++ Standard Library to find the insertion position. 
-This function performs a binary search and returns an iterator pointing 
-to the first element that is not less than target, or container.end()
-
-std::cout << "Jacobsthal Numbers: {";
-	for (size_t i = 0; i < _jacobsthalNumbers.size(); ++i) {
-    	std::cout << _jacobsthalNumbers[i];
-   		if (i < _jacobsthalNumbers.size() - 1) {
-        	std::cout << ", ";
-    	}
-	}
-	std::cout << "}" << std::endl;
-
 Jacobsthal numbers are an integer sequence related to Fibonacci numbers. Similar to Fibonacci, where each term is the sum of the previous two terms, each term is the sum of the previous, plus twice the one before that. Traditionally the sequence starts with the given terms 0, 1.
 
    J0 = 0

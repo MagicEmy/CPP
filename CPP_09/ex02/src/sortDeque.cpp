@@ -17,23 +17,17 @@ void PmergeMe::mergeInsertDeque(const std::deque<int>& input, std::deque<int>& s
     unsigned int nPairs = input.size() / 2;
     unsigned int inserted = 0;
 
-    if (toSort.empty())
+    if (toSort.empty()){
         return;
-
-    binaryInsert(sorted, toSort[0], inserted++);
-
-	for (std::vector<int>::iterator it = _jacobsthalNumbers.begin() + 1; it != _jacobsthalNumbers.end(); ++it) {
-		if (*it < 5){
-	    	for (int x = std::min<int>(*it, nPairs - 1); x > 0 && x >= *(it - 1); x--) 
-    	  		binaryInsert(sorted, toSort[x], inserted++ + x);
-		}
-		else {
-			for (int x = std::min<int>(*it, nPairs - 1); x > 0 && x > *(it - 1); x--)
-				binaryInsert(sorted, toSort[x], inserted++ + x);
-		}
 	}
 
-    // If the input deque size is odd, insert the last element into 'sorted'
+	binaryInsert(sorted, toSort[0], inserted++);
+
+	for (std::vector<int>::iterator it = _jacobsthalNumbers.begin() + 1; it != _jacobsthalNumbers.end(); ++it) {
+		for (int x = std::min<int>(*it, nPairs - 1); x > 0 && x > *(it - 1); x--)
+			binaryInsert(sorted, toSort[x], inserted++ + x);
+	}
+    // If the input vector size is odd
     if (input.size() % 2)
         binaryInsert(sorted, input.back(), input.size() - 1);
 }
