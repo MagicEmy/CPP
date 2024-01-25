@@ -6,7 +6,8 @@ SRC_DIR		= src
 OBJ_DIR		= obj
 DEP_DIR		= dep
 DEP 		= $(SRC:%.cpp=$(DEP_DIR)/%.d)
-FILE_NAME	= output.txt
+INFILE_NAME	= input.txt
+OUFILE_NAME	= output.txt
 
 CC 			= c++
 FLAGS 		= -Wall -Werror -Wextra
@@ -34,7 +35,8 @@ clean:
 	@rm -f $(OBJ)
 	@rm -rf $(OBJ_DIR)
 	@rm -rf $(DEP_DIR)
-	@rm -rf $(FILE_NAME)
+	@rm -rf $(INFILE_NAME)
+	@rm -rf $(OUFILE_NAME)
 
 fclean: clean
 	@rm -f $(NAME)

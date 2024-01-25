@@ -17,18 +17,21 @@ void PmergeMe::mergeInsert(const std::vector<int>& input, std::vector<int>& sort
     unsigned int nPairs = input.size() / 2;
     unsigned int inserted = 0;
 
-
     if (toSort.empty())
         return;
 
-        binaryInsert(sorted, toSort[0], inserted++);
+	binaryInsert(sorted, toSort[0], inserted++);
 
-        for (std::vector<int>::iterator it = _jacobsthalNumbers.begin() + 1; it != _jacobsthalNumbers.end(); ++it) {
-			for (int x = std::min<int>(*it, nPairs - 1); x > *(it - 1); x--) {
-		        binaryInsert(sorted, toSort[x], inserted++ + x);
-			}
+	for (std::vector<int>::iterator it = _jacobsthalNumbers.begin() + 1; it != _jacobsthalNumbers.end(); ++it) {
+		if (*it < 5){
+	    	for (int x = std::min<int>(*it, nPairs - 1); x > 0 && x >= *(it - 1); x--) 
+    	  		binaryInsert(sorted, toSort[x], inserted++ + x);
 		}
-
+		else {
+			for (int x = std::min<int>(*it, nPairs - 1); x > 0 && x > *(it - 1); x--)
+				binaryInsert(sorted, toSort[x], inserted++ + x);
+		}
+	}
     // If the input vector size is odd
     if (input.size() % 2)
         binaryInsert(sorted, input.back(), input.size() - 1);

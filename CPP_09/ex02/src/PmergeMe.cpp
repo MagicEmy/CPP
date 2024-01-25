@@ -9,7 +9,7 @@
 
 typedef std::pair<int,int>	pair;
 
-PmergeMe::PmergeMe() : _sequence(), _deSequence() {
+PmergeMe::PmergeMe() : _sequence(), _deSequence(), _jacobsthalNumbers() {
 	
 	generateJacobsthalNumbers();
 }
@@ -20,18 +20,19 @@ void PmergeMe::generateJacobsthalNumbers() {
     int a = 0;
     int b = 1;
 
-    for (int i = 0; i < 30; ++i) {
+    for (size_t i = 0; i < 28; ++i) {
 		if (i > 1)
 	        _jacobsthalNumbers.push_back(a);
         int temp = a;
         a = b;
         b = b + 2 * temp;
     }
+	
 }
 
 PmergeMe::~PmergeMe() {}
 
-PmergeMe::PmergeMe(const PmergeMe &src) : _sequence(src._sequence), _deSequence(src._deSequence) {
+PmergeMe::PmergeMe(const PmergeMe &src) : _sequence(src._sequence), _deSequence(src._deSequence), _jacobsthalNumbers(src._jacobsthalNumbers){
 	*this = src;
 }
 
@@ -40,6 +41,7 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &src) {
 		return *this;
 	this->_sequence = src._sequence;
 	this->_deSequence = src._deSequence;
+	this->_jacobsthalNumbers = src._jacobsthalNumbers;
 	return *this;
 }
 
@@ -89,10 +91,18 @@ void	PmergeMe::parse(int argc, char **argv) {
 
 	std::cout << "Input Before sorting: ";
 	if (_sequence.size() > 20) {
-		for (std::vector<int>::const_iterator it = _sequence.begin(); it != _sequence.begin() + 10; ++it) {
+		for (std::vector<int>::const_iterator it = _sequence.begin(); it != _sequence.begin() + 20; ++it) {
         	std::cout << *it << " "; }
 		std::cout << "[...]";
 		std::cout << std::endl;
+		std::ofstream infile("input.txt");
+		if (!infile.is_open())
+			throw std::runtime_error("Error opening file");
+		for (std::vector<int>::const_iterator it = _sequence.begin(); it != _sequence.end(); ++it) {
+        	infile << *it << " ";
+   		}
+    	infile << std::endl;
+		infile.close();
 	}
 	else {
 		for (std::vector<int>::const_iterator it = _sequence.begin(); it != _sequence.end(); ++it) {
@@ -123,19 +133,19 @@ void	PmergeMe::run() {
 
 	std::cout << "Input  After sorting: ";
 
-	if (_sequence.size() > 10) {
-		for (std::vector<int>::const_iterator it = sorted.begin(); it != sorted.begin() + 10; ++it) {
+	if (_sequence.size() > 20) {
+		for (std::vector<int>::const_iterator it = sorted.begin(); it != sorted.begin() + 20; ++it) {
         	std::cout << *it << " "; }
 		std::cout << "[...]";
 		std::cout << std::endl;
-		std::ofstream file("output.txt");
-		if (!file.is_open())
+		std::ofstream outfile("output.txt");
+		if (!outfile.is_open())
 			throw std::runtime_error("Error opening file");
 		for (std::vector<int>::const_iterator it = sorted.begin(); it != sorted.end(); ++it) {
-        	file << *it << " ";
+        	outfile << *it << " ";
    		}
-    	file << std::endl;
-		file.close();
+    	outfile << std::endl;
+		outfile.close();
 	}
 	else {
 		for (std::vector<int>::const_iterator it = sorted.begin(); it != sorted.end(); ++it) {
