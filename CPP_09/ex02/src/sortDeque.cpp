@@ -5,8 +5,7 @@
 
 typedef std::pair<int, int> pair;
 
-// Binary insertion sort on a deque of integers (deque). It inserts a new item (newItem) into the deque while maintaining the sorted order up to max_range.
-// std::upper_bound is used to find the position.
+//binary insertion sort.It inserts a new item (newItem) into the vector while maintaining the sorted order up to max_range.	std::upper_bound is used to find the position
 void binaryInsert(std::deque<int>& deq, int newItem, unsigned int max_range) {
     std::deque<int>::iterator iter = std::upper_bound(deq.begin(), deq.begin() + max_range, newItem);
     deq.insert(iter, newItem);
@@ -14,35 +13,25 @@ void binaryInsert(std::deque<int>& deq, int newItem, unsigned int max_range) {
 
 // Merging operation using the sorted deques toSort and sorted. It uses a modified version of the Jacobsthal sequence to determine the insertion points for the elements in toSort into the sorted deque. The merging is done in such a way that the final sorted deque is sorted.
 void PmergeMe::mergeInsertDeque(const std::deque<int>& input, std::deque<int>& sorted, std::deque<int>& toSort) {
-    // Calculate the number of pairs in the input deque
+
     unsigned int nPairs = input.size() / 2;
-
-    // Initialize variables for indices and counters
-    unsigned int index = 1;
     unsigned int inserted = 0;
-    unsigned int jacobIndex = 0;
-    unsigned int nextJacobIndex = 0;
 
-    // Check if the 'toSort' deque is empty, and return if true
     if (toSort.empty())
         return;
 
-    // Loop processes pairs based on Jacobsthal numbers until jacobIndex is no longer less than nPairs.
-    while (jacobIndex < nPairs) {
-        // First insertion where ‘jacobIndex’ is 0.
-        binaryInsert(sorted, toSort[jacobIndex], inserted++ + jacobIndex);
+    binaryInsert(sorted, toSort[0], inserted++);
 
-        // Calculate the next index based on Jacobsthal numbers
-        nextJacobIndex = _jacobsthalNumbers[index] - 1;
-
-        // Insert the remaining elements between 'jacobIndex' and 'nextJacobIndex' into 'sorted'
-        for (int j = jacobIndex + 1; j < std::min<int>(nextJacobIndex, nPairs); j++)
-            binaryInsert(sorted, toSort[j], inserted++ + j);
-
-        // Update indices and counters for the next iteration
-        jacobIndex = nextJacobIndex;
-        index++;
-    }
+	for (std::vector<int>::iterator it = _jacobsthalNumbers.begin() + 1; it != _jacobsthalNumbers.end(); ++it) {
+		if (*it < 5){
+	    	for (int x = std::min<int>(*it, nPairs - 1); x > 0 && x >= *(it - 1); x--) 
+    	  		binaryInsert(sorted, toSort[x], inserted++ + x);
+		}
+		else {
+			for (int x = std::min<int>(*it, nPairs - 1); x > 0 && x > *(it - 1); x--)
+				binaryInsert(sorted, toSort[x], inserted++ + x);
+		}
+	}
 
     // If the input deque size is odd, insert the last element into 'sorted'
     if (input.size() % 2)
