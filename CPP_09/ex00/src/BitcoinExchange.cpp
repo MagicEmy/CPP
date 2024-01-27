@@ -11,7 +11,7 @@ BitcoinExchange::BitcoinExchange(const std::string& filename) {
 	try
 	{
 		this->loadDatabase();
-		this->parseFile(filename);
+		this->parseInputFile(filename);
 	}
 	catch(const std::exception& e)
 	{
@@ -60,8 +60,8 @@ void BitcoinExchange::loadDatabase() {
 			continue;
 
 		try	{
-			parseLine(line, ',');
 			std::string date = line.substr(0, line.find(',')); // e.g 2022-01-15,43146.53
+			dateValidation(date);
 			dateValueMap[date] = std::stof(line.substr(line.find(',') + 1, line.length()));			
 		}
 		catch(const std::exception& e) {
@@ -71,9 +71,17 @@ void BitcoinExchange::loadDatabase() {
 	dataFile.close();
 }
 
+void BitcoinExchange::dateValidation(std::string& date) {
+	
+	std::tm tm = {};
+	std::stringstream date_ss(date);
 
+	date_ss >> std::get_time(&tm, "%Y-%m-%d"); // "YYYY-MM-DD" format
+	if (date_ss.fail()) 
+		throw std::runtime_error("Error: Invalid date " + date_ss.str());
+}
 
-void BitcoinExchange::parseFile(const std::string& filename) {
+void BitcoinExchange::parseInputFile(const std::string& filename) {
 
 	std::ifstream inFile(filename);
 
@@ -101,26 +109,24 @@ void BitcoinExchange::parseFile(const std::string& filename) {
 }
 
 void BitcoinExchange::parseLine(std::string& line, char delim ) {
-
-		std::stringstream ss(line);
-		std::string date = "";
-		float value = 0.0f;
-		ss >> date >> delim >> value;
-		
-		// Date validation
-		std::tm tm = {};
-		std::stringstream date_ss(date);
-
-		date_ss >> std::get_time(&tm, "%Y-%m-%d"); // "YYYY-MM-DD" format
-		if (date_ss.fail()) 
-			throw std::runtime_error("Error: Invalid date " + date_ss.str());
-
-		//Value validation
-		if (value < 0 || value > 1000)
-			throw std::runtime_error("Error: Invalid value " + std::to_string(static_cast<int>(value)));
-		if (delim == '|')
-			std::cout << date << " => " << value << " = " << value * this->run(date) << std::endl;
-		
+	
+	float value = 0.0f;
+	
+	std::string date = line.substr(0, line.find(delim)); 
+	dateValidation(date);
+	
+	size_t delimPos = line.find(delim);
+    if (delimPos != std::string::npos && delimPos + 1 < line.length()) {
+        value = std::stof(line.substr(delimPos + 1));
+        
+        // Rest of your code
+        if (value < 0 || value > 1000)
+            throw std::runtime_error("Error: Invalid value " + std::to_string(static_cast<int>(value)));
+        
+        std::cout << date << " => " << value << " = " << value * this->run(date) << std::endl;
+    } else {
+        throw std::runtime_error("Error: Invalid value " + std::to_string(static_cast<int>(value)));
+    }
 }
 
 float BitcoinExchange::run(std::string& date) {
@@ -152,4 +158,3 @@ float BitcoinExchange::run(std::string& date) {
 // }
 // std::cout << dateValueMap.size() << std::endl;
 // }
-

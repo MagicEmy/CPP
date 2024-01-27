@@ -160,13 +160,13 @@ void	PmergeMe::run() {
 void PmergeMe::displayTimeVec(const std::string& containerType, const std::chrono::microseconds& duration) {
 	
 	std::cout << "Time to process a range of " << _sequence.size() << " elements with " << containerType
-              << " : " << std::fixed << std::setprecision(5) << static_cast<double>(duration.count())/1000 << " microseconds" << std::endl;
+              << " : " << std::fixed << std::setprecision(5) << static_cast<double>(duration.count())/1000 << " milliseconds" << std::endl;
 }
 
 void PmergeMe::displayTimeDeq(const std::string& containerType, const std::chrono::microseconds& duration) {
 	
 	std::cout << "Time to process a range of " << _deSequence.size() << " elements with " << containerType
-              << " : " << std::fixed << std::setprecision(5) << static_cast<double>(duration.count())/1000 << " microseconds" << std::endl;
+              << " : " << std::fixed << std::setprecision(5) << static_cast<double>(duration.count())/1000 << " milliseconds" << std::endl;
 }
 
 

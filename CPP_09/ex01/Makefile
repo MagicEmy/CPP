@@ -37,6 +37,22 @@ clean:
 fclean: clean
 	@rm -f $(NAME)
 
+run: all
+	@clear
+	@./$(NAME) "8 9 * 9 - 9 - 9 - 4 - 1 +" 
+	@./$(NAME)	"7 7 * 7 -" 
+	@./$(NAME)	"1 2 * 2 / 2 * 2 4 - +" 
+	@./$(NAME)	"(1 + 1)" 
+	@./$(NAME)	"1 0 /" 
+	@./$(NAME)	"1 2 / a" 
+	@./$(NAME)	asdasdasd 
+	@./$(NAME)	"3" 
+	@./$(NAME)	"3 3" 
+	@./$(NAME)	" " 
+	@./$(NAME)	" + 3 4" 
+	@./$(NAME)	" + - " 
+	@./$(NAME)	"3 4 5 7 9 2 - + + + +"
+		
 re: fclean all
 
 .PHONY: all clean fclean re

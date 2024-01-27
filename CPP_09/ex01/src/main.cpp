@@ -6,11 +6,11 @@ int main( int argc, char **argv) {
 	if (argc != 2) {
 
 		std::cerr << "Usage: " << argv[0] 
-		<< " <inverted Polish mathematical expression>"
+		<< " \"inverted Polish mathematical expression\""
 		<< std::endl;
 		return 0;
 	}
-
+	std::cout << argv[1] << " = ";
 	try {
 
 		double result = RPNCalculator::calculate(argv [1]);

@@ -10,10 +10,11 @@ class BitcoinExchange
 		
 		BitcoinExchange(const BitcoinExchange &src);
 		BitcoinExchange &operator=(const BitcoinExchange &src);
-		void parseFile(const std::string& filename);
+		void parseInputFile(const std::string& filename);
 		void parseLine(std::string& line, char delim);
 		float run(std::string& date);
 		void loadDatabase();
+		void dateValidation(std::string& date);
 
 	public:
 		BitcoinExchange();
