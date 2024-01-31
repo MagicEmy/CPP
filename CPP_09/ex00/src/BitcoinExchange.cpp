@@ -2,19 +2,18 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <string>
+#include <cstring>
+#include <iomanip>
 
 BitcoinExchange::BitcoinExchange() {}
 
 BitcoinExchange::BitcoinExchange(const std::string& filename) {
 
-	try
-	{
+	try	{
 		this->loadDatabase();
 		this->parseInputFile(filename);
 	}
-	catch(const std::exception& e)
-	{
+	catch(const std::exception& e)	{
 		std::cerr << e.what() << '\n';
 	}
 	
@@ -54,18 +53,24 @@ void BitcoinExchange::loadDatabase() {
 		throw std::runtime_error("File is empty");
 	}
 	dataFile.seekg(0, std::ios::beg);
+
 	std::string line;
 	while (std::getline(dataFile, line)) {
 		if (std::strcmp(line.c_str(), "date,exchange_rate") == 0)
 			continue;
 
 		try	{
+
 			std::string date = line.substr(0, line.find(',')); // e.g 2022-01-15,43146.53
 			dateValidation(date);
-			dateValueMap[date] = std::stof(line.substr(line.find(',') + 1, line.length()));			
+			try {
+				dateValueMap[date] = std::stof(line.substr(line.find(',') + 1, line.length()));
+			} catch(const std::exception& e) {
+				throw std::runtime_error("Error: Invalid value " + line.substr(line.find(',') + 1, line.length()));
+			}
 		}
-		catch(const std::exception& e) {
-			std::cerr << e.what() << '\n';
+			catch(const std::exception& e) {
+				std::cerr << e.what() << '\n';
 		}
 	}
 	dataFile.close();
@@ -96,7 +101,8 @@ void BitcoinExchange::parseInputFile(const std::string& filename) {
 	inFile.seekg(0, std::ios::beg);
 	std::string line;
 	while (std::getline(inFile, line)) {
-		if (std::strcmp(line.c_str(), "date | value") == 0)
+		if (std::strcmp(line.c_str(), "date | value") == 0 || \
+			std::strcmp(line.c_str(), "") == 0)
 			continue;
 		try	{
 			parseLine(line, '|');
@@ -111,21 +117,47 @@ void BitcoinExchange::parseInputFile(const std::string& filename) {
 void BitcoinExchange::parseLine(std::string& line, char delim ) {
 	
 	float value = 0.0f;
-	
-	std::string date = line.substr(0, line.find(delim)); 
-	dateValidation(date);
+	std::string valueStr;
 	
 	size_t delimPos = line.find(delim);
-    if (delimPos != std::string::npos && delimPos + 1 < line.length()) {
-        value = std::stof(line.substr(delimPos + 1));
-        
-        // Rest of your code
+	if (delimPos == std::string::npos)
+		throw std::runtime_error("Error: Invalid input, invalid format " + line);
+	
+	std::string date = line.substr(0, delimPos);
+	try {
+		dateValidation(date);
+	}
+	catch(const std::exception& e) {
+		throw;
+	}
+
+	if (delimPos + 1 < line.length()){
+		valueStr = line.substr(delimPos + 1, line.length());
+		try {
+			value = std::stof(valueStr);
+		}
+		catch(const std::exception& e) {
+			throw std::runtime_error("Error: Invalid value " + valueStr);
+		}
+		
+        size_t dotPos = valueStr.find('.');
+		if (dotPos != std::string::npos && dotPos + 1 < line.length()) {
+			size_t dotPos2 = valueStr.find('.', dotPos + 1);
+			if (dotPos != std::string::npos && dotPos2 != std::string::npos)
+				throw std::runtime_error("Error: Invalid value " + valueStr);
+		}
         if (value < 0 || value > 1000)
-            throw std::runtime_error("Error: Invalid value " + std::to_string(static_cast<int>(value)));
-        
-        std::cout << date << " => " << value << " = " << value * this->run(date) << std::endl;
+            throw std::runtime_error("Error: Invalid value " + valueStr);
+        try {
+			this->run(date);
+			std::cout << date << " => " << value << " = " << value * this->run(date) << std::endl;
+		}
+		catch(const std::exception& e) {
+			throw;
+		}
+
     } else {
-        throw std::runtime_error("Error: Invalid value " + std::to_string(static_cast<int>(value)));
+        throw std::runtime_error("Error: Invalid input " + valueStr);
     }
 }
 
@@ -133,28 +165,22 @@ float BitcoinExchange::run(std::string& date) {
 
 	std::map<std::string, float>::const_iterator it = dateValueMap.lower_bound(date);
 
-    // If 'it' points to the end of _data, return the last element in _data
+    // If 'it' points to the end of _data, return the last element of _data	 
     if (it == dateValueMap.end())
         return (dateValueMap.rbegin()->second);
 
     // If the date of 'it' is greater than 'date'
     if (it->first > date) {
-        // If 'it' points to the beginning of dateValueMap, return its rate
+
+        // If 'it' points to the beginning of dateValueMap, throw an exception because the date is out of range
         if (it == dateValueMap.begin())
-            return (it->second);
+			throw std::runtime_error("Error: invalid date " + date + " first available date: " + dateValueMap.begin()->first);
+
         // Otherwise, return the rate of the previous day
         return (std::prev(it)->second);
     }
+
 	// If none of the above conditions are met, return the rate of 'it'
+	std::cout << "case 5 return (it->second)" << date << std::endl;
     return (it->second);
 }
-
-
-
-// std::map<std::string, float>::iterator begin = this->dateValueMap.begin();
-// std::map<std::string, float>::iterator end = this->dateValueMap.end();
-// for (std::map<std::string, float>::iterator it = begin; it != end; ++it) {
-// 	std::cout << it->first << " => " << it->second << '\n';
-// }
-// std::cout << dateValueMap.size() << std::endl;
-// }
