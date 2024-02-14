@@ -32,7 +32,7 @@ double RPNCalculator::calculate(const std::string& expression) {
 
     for (size_t i = 0; i < expression.length(); ++i) {
         char c = expression[i];
-        if (std::isdigit(c)) {
+        if (std::isdigit(c) ) {
             int operand = c - '0';
             opStack.push(operand);
         } 
@@ -49,6 +49,6 @@ double RPNCalculator::calculate(const std::string& expression) {
             throw std::invalid_argument("Error: Invalid character found in the expression.");
 	}
 	if (opStack.size() != 1)
-		throw std::runtime_error("Error: Invalid expression - too many operands");
+		throw std::runtime_error("Error: Invalid expression");
     return opStack.top();
 }

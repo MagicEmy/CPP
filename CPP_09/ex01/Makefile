@@ -9,7 +9,7 @@ DEP 		= $(SRC:%.cpp=$(DEP_DIR)/%.d)
 
 CC 			= c++
 FLAGS 		= -Wall -Werror -Wextra
-# FLAGS 		+= -std=c++98
+# FLAGS 		+= -std=c++11
 # FLAGS 		+= -fsanitize=address
 
 INC 		= -I $(INCLUDE_DIR)

@@ -53,7 +53,7 @@ void isnumber(std::string str) {
         throw std::runtime_error("Empty string");
     for (std::string::iterator it = str.begin(); it != str.end(); it++) {
         if (isdigit(*it) == false)
-            throw std::runtime_error("The input is not valid, please enter only positive numbers");    
+            throw std::runtime_error("The input is not valid, please enter only (positive) numbers");    
     }
 }
 
@@ -77,6 +77,8 @@ bool	PmergeMe::inputValidation(int argc, char **argv) {
 
 void	PmergeMe::parse(int argc, char **argv) {
 
+	auto startTime = std::chrono::high_resolution_clock::now();
+
 	try {
 			inputValidation(argc, argv);
 			if (hasDuplicates(_sequence))
@@ -88,7 +90,7 @@ void	PmergeMe::parse(int argc, char **argv) {
 	generateJacobsthalNumbers();
 	_deSequence.assign(_sequence.begin(), _sequence.end());
 
-	std::cout << "Input Before sorting: ";
+	std::cout << "\nInput Before sorting: ";
 	if (_sequence.size() > 20) {
 		for (std::vector<int>::const_iterator it = _sequence.begin(); it != _sequence.begin() + 20; ++it) {
         	std::cout << *it << " "; }
@@ -109,6 +111,10 @@ void	PmergeMe::parse(int argc, char **argv) {
 		}
 		std::cout << std::endl;
 	}
+
+	auto endTime = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::duration<double>>(endTime - startTime);
+	_time = duration.count();
 }
 
 void	PmergeMe::run() {
@@ -122,13 +128,15 @@ void	PmergeMe::run() {
 	splitAndSortVect(_sequence, sorted, toSort);
 	mergeInsertVect(_sequence, sorted, toSort);
 	auto endTime = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime);
+    // auto duration = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime);
+	auto duration = std::chrono::duration_cast<std::chrono::duration<double>>(endTime - startTime);
 
 	auto startTimeDeq = std::chrono::high_resolution_clock::now();
 	splitAndSortDeque(_deSequence, dSorted, dtoSort);
 	mergeInsertDeque(_deSequence, dSorted, dtoSort);
 	auto endTimeDeq = std::chrono::high_resolution_clock::now();
-    auto durationDeq = std::chrono::duration_cast<std::chrono::microseconds>(endTimeDeq - startTimeDeq);
+	std::chrono::duration<double> durationDeq = std::chrono::duration_cast<std::chrono::duration<double>>(endTimeDeq - startTimeDeq);
+
 
 	std::cout << "Input  After sorting: ";
 
@@ -153,20 +161,25 @@ void	PmergeMe::run() {
 		std::cout << std::endl;
 	}
 
+	// std::cout << "\nTime to parse input: " << std::fixed << std::setprecision(6) << _time << " seconds \n" << std::endl;
 	displayTimeVec("vector", duration);
 	displayTimeDeq("deque", durationDeq);
 }
 
-void PmergeMe::displayTimeVec(const std::string& containerType, const std::chrono::microseconds& duration) {
-	
-	std::cout << "Time to process a range of " << _sequence.size() << " elements with " << containerType
-              << " : " << std::fixed << std::setprecision(5) << static_cast<double>(duration.count())/1000 << " milliseconds" << std::endl;
+void PmergeMe::displayTimeVec(const std::string& containerType, const std::chrono::duration<double>& duration) {
+
+	std::cout << "\nTime to sort in vector: " << std::fixed << std::setprecision(6) << static_cast<double>(duration.count()) << " seconds " << std::endl;
+
+	std::cout 	<< "Total time to parse and sort " << _sequence.size() << " elements with " << containerType << " : "
+				<< std::fixed << std::setprecision(6) << static_cast<double>(duration.count()) + _time << " seconds" << std::endl;
 }
 
-void PmergeMe::displayTimeDeq(const std::string& containerType, const std::chrono::microseconds& duration) {
+void PmergeMe::displayTimeDeq(const std::string& containerType, const std::chrono::duration<double>& durationDeq) {
 	
-	std::cout << "Time to process a range of " << _deSequence.size() << " elements with " << containerType
-              << " : " << std::fixed << std::setprecision(5) << static_cast<double>(duration.count())/1000 << " milliseconds" << std::endl;
+	std::cout << "\nTime to sort in vector: " << std::fixed << std::setprecision(6) << static_cast<double>(durationDeq.count()) << " seconds " << std::endl;
+
+	std::cout	<< "Total time to process a range of " << _deSequence.size() << " elements with " << containerType << " : "
+              	<< std::fixed << std::setprecision(6) << static_cast<double>(durationDeq.count()) + _time << " seconds" << std::endl;
 }
 
 

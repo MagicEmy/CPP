@@ -1,12 +1,11 @@
 #include "BitcoinExchange.hpp"
 #include <iostream>
 
-#define MAX 4096
 int main (int argc, char **argv)
 {
 	if ( argc != 2 ) {
 
-		std::cout << "Usage: ./bitcoin [file]" << std::endl;
+		std::cout << "Usage: ./bitcoin [input file]" << std::endl;
 		return (1);
 	}
 

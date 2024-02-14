@@ -13,6 +13,7 @@ class PmergeMe
 			std::deque<int>		_deSequence;
 			std::vector<int>	_jacobsthalNumbers;
 			int					_maxValue;
+			double				_time;
 
 			void generateJacobsthalNumbers();
 			bool inputValidation(int argc, char **argv);
@@ -20,8 +21,8 @@ class PmergeMe
 			void splitAndSortVect(const std::vector<int>& vectInput, std::vector<int>& sorted, std::vector<int>& toSort );
 			void mergeInsertDeque(const std::deque<int>& input, std::deque<int>& sorted, std::deque<int>& toSort);
 			void splitAndSortDeque(const std::deque<int>& dequeInput, std::deque<int>& sorted, std::deque<int>& toSort );
-			void displayTimeVec(const std::string& containerType, const std::chrono::microseconds& duration);
-			void displayTimeDeq(const std::string& containerType, const std::chrono::microseconds& duration);
+			void displayTimeVec(const std::string& containerType, const std::chrono::duration<double>& duration);
+			void displayTimeDeq(const std::string& containerType, const std::chrono::duration<double>& duration);
 			bool hasDuplicates(std::vector<int>& vec);
 			
 	public:

@@ -42,7 +42,7 @@ void BitcoinExchange::loadDatabase() {
 	std::ifstream dataFile("data.csv");
 
 	if (!dataFile) {
-		std::cout << "Error: Can't open file" << std::endl;
+		std::cout << "Error: Can't open database file" << std::endl;
 		throw std::runtime_error("Can't open file");
 	}
 
@@ -50,7 +50,7 @@ void BitcoinExchange::loadDatabase() {
 	size_t size = dataFile.tellg();
 	if (size == 0) {
 		std::cout << "Error: File is empty" << std::endl;
-		throw std::runtime_error("File is empty");
+		throw std::runtime_error("Database file is empty");
 	}
 	dataFile.seekg(0, std::ios::beg);
 
@@ -82,8 +82,10 @@ void BitcoinExchange::dateValidation(std::string& date) {
 	std::stringstream date_ss(date);
 
 	date_ss >> std::get_time(&tm, "%Y-%m-%d"); // "YYYY-MM-DD" format
-	if (date_ss.fail()) 
-		throw std::runtime_error("Error: Invalid date " + date_ss.str());
+	if (date_ss.fail()) {
+		
+		throw std::runtime_error("Error: Invalid date " + date_ss.str() + " required format: \"YYYY-MM-DD\"");
+	}
 }
 
 void BitcoinExchange::parseInputFile(const std::string& filename) {
@@ -91,12 +93,12 @@ void BitcoinExchange::parseInputFile(const std::string& filename) {
 	std::ifstream inFile(filename);
 
 	if (!inFile) 
-		throw std::runtime_error("Can't open file");
+		throw std::runtime_error("Can't open input file");
 
 	inFile.seekg(0, std::ios::end);
 	size_t size = inFile.tellg();
 	if (size == 0)
-		throw std::runtime_error("File is empty");
+		throw std::runtime_error("File input is empty");
 	
 	inFile.seekg(0, std::ios::beg);
 	std::string line;
@@ -133,19 +135,24 @@ void BitcoinExchange::parseLine(std::string& line, char delim ) {
 
 	if (delimPos + 1 < line.length()){
 		valueStr = line.substr(delimPos + 1, line.length());
+		// Check if valueStr contains only digits and/or a period
+        if (valueStr.find_first_not_of("0123456789. \t") != std::string::npos)
+            throw std::runtime_error("Error: Invalid value " + valueStr);
+
 		try {
 			value = std::stof(valueStr);
 		}
 		catch(const std::exception& e) {
 			throw std::runtime_error("Error: Invalid value " + valueStr);
 		}
-		
+
         size_t dotPos = valueStr.find('.');
 		if (dotPos != std::string::npos && dotPos + 1 < line.length()) {
 			size_t dotPos2 = valueStr.find('.', dotPos + 1);
 			if (dotPos != std::string::npos && dotPos2 != std::string::npos)
 				throw std::runtime_error("Error: Invalid value " + valueStr);
 		}
+		
         if (value < 0 || value > 1000)
             throw std::runtime_error("Error: Invalid value " + valueStr);
         try {
@@ -181,6 +188,5 @@ float BitcoinExchange::run(std::string& date) {
     }
 
 	// If none of the above conditions are met, return the rate of 'it'
-	std::cout << "case 5 return (it->second)" << date << std::endl;
     return (it->second);
 }
